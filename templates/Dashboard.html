@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard – Smart Loan Risk Assessment</title>
+
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Bank_logo_black.png') }}" />
+  <link rel="stylesheet" href="/project/static/css/Dashboard.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/Dashboard.css') }}">
+</head>
+
+<body>
+  <div class="page-content">
+
+    <!-- Navigation Bar -->
+    <nav>
+      <div class="nav-container">
+        <!-- Left: Logo & Title -->
+        <div class="nav-left">
+          <div class="logo-icon">
+            <img src="{{ url_for('static', filename='img/Bank_logo_black.png') }}" alt="Logo" />
+          </div>
+          <h3>Loan Predictor</h3>
+        </div>
+
+        <!-- Right: Navigation Links -->
+        <div class="nav-right">
+          <div class="hamburger" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+          <ul class="nav-links" id="nav-links">
+            <li><a href="{{ url_for('about') }}">Dashboard</a></li>
+            <li><a href="#dataset">Data Set</a></li>
+            <li><a href="#model">ML Model</a></li>
+            <li><a href="{{ url_for('home') }}">Predictor</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section content-wrapper">
+      <h2 class="section-title">Loan Risk Dashboard</h2>
+      <p class="section-subtitle">Explore insights with our interactive Tableau dashboard.</p>
+
+      <!-- New Tableau Embed -->
+      <div class="tableau-container">
+        <div class="tableauPlaceholder" id="viz1750253846839" style="position: relative">
+          <noscript>
+            <a href="#"><img alt="Overview of Risk" src="https://public.tableau.com/static/images/2F/2FMRMS4S4/1_rss.png" style="border: none" /></a>
+          </noscript>
+          <object class="tableauViz" style="display:none;">
+            <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+            <param name="embed_code_version" value="3" />
+            <param name="path" value="shared/2FMRMS4S4" />
+            <param name="toolbar" value="yes" />
+            <param name="static_image" value="https://public.tableau.com/static/images/2F/2FMRMS4S4/1.png" />
+            <param name="animate_transition" value="yes" />
+            <param name="display_static_image" value="yes" />
+            <param name="display_spinner" value="yes" />
+            <param name="display_overlay" value="yes" />
+            <param name="display_count" value="yes" />
+            <param name="language" value="en-GB" />
+            <param name="filter" value="publish=yes" />
+          </object>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>&copy; 2000–2025 Loan Predictor, Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script>
+    const divElement = document.getElementById('viz1750253846839');
+    const vizElement = divElement.getElementsByTagName('object')[0];
+
+    // Resize logic to make dashboard larger
+    if (divElement.offsetWidth > 800) {
+      vizElement.style.width = '100%';
+      vizElement.style.height = (divElement.offsetWidth * 0.50) + 'px';
+    } else if (divElement.offsetWidth > 500) {
+      vizElement.style.width = '100%';
+      vizElement.style.height = (divElement.offsetWidth * 1.3) + 'px';
+    } else {
+      vizElement.style.width = '100%';
+      vizElement.style.height = '1900px';
+    }
+
+    const scriptElement = document.createElement('script');
+    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+    vizElement.parentNode.insertBefore(scriptElement, vizElement);
+  </script>
+</body>
+</html>

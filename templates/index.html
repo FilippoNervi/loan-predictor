@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Risk Assessment</title>
+
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Bank_logo_black.png') }}">
+  <link rel="stylesheet" href="/project/static/css/style.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+</head>
+
+<body>
+  <div class="page-content">
+     <!-- Navigation Bar -->
+    <nav>
+      <div class="nav-container">
+        <!-- Left: Logo & Title -->
+        <div class="nav-left">
+          <div class="logo-icon">
+            <img src="{{ url_for('static', filename='img/Bank_logo_black.png') }}" alt="Logo" />
+          </div>
+          <h3>Loan Predictor</h3>
+        </div>
+
+        <!-- Right: Navigation Links -->
+        <div class="nav-right">
+          <div class="hamburger" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+          <ul class="nav-links" id="nav-links">
+            <li><a href="{{ url_for('about') }}">Dashboard</a></li>
+            <li><a href="#dataset">Data Set</a></li>
+            <li><a href="#model">ML Model</a></li>
+            <li><a href="{{ url_for('home') }}">Predictor</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <div class="hero-content">
+          <h1 class="hero-title">Smart Loan Risk Assessment</h1>
+          <p class="hero-subtitle">
+            Leverage advanced machine learning algorithms to make informed lending decisions. 
+            Our AI-powered system analyzes multiple risk factors to provide accurate loan approval predictions.
+          </p>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="content-wrapper">
+          <div class="client-selection">
+            <h2 class="section-title">Risk Assessment Portal</h2>
+            <p class="section-subtitle">
+              Select the client type to begin the risk evaluation process.
+            </p>
+            <div class="client-type-buttons">
+              <button class="client-btn" onclick="showForm('new')"><span>New Client</span></button>
+              <button class="client-btn" onclick="showForm('existing')"><span>Existing Client</span></button>
+            </div>
+
+            <div class="form-container">
+              <!-- NEW CLIENT FORM -->
+              <div id="form-new" class="loan-form {% if show_result %}{% else %}hidden{% endif %}">
+                <form action="/predict_interest#form-new" method="post">
+                  <div class="form-grid">
+                
+                    <!-- Loan Amount Slider -->
+                    <div class="form-group slider-wrapper">
+                      <div class="label-row">
+                        <label for="loan_amnt" class="slider-label">
+                          <strong class="slider-text">Loan Amount:</strong>
+                        </label>
+                        <div class="value-display loan-value">
+                          <span>$</span><span id="loanAmountValue" class="value-number">{{ request.form.loan_amnt or 10000 }}</span>
+                        </div>
+                      </div>
+                      <input type="range"
+                             id="loan_amnt"
+                             name="loan_amnt"
+                             min="1000"
+                             max="100000"
+                             step="500"
+                             value="{{ request.form.loan_amnt or 10000 }}"
+                             required
+                             oninput="updateLoanAmount(this.value)">
+                      <p class="slider-note">Select client desired loan amount.</p>
+                    </div>
+                
+                    <!-- Loan Term Slider -->
+                    <div class="form-group slider-wrapper">
+                      <div class="label-row">
+                        <label for="term" class="slider-label"><strong class="slider-text">Loan Term:</strong></label>
+                        <div class="value-display">
+                          <span id="loanTermValue">{{ request.form.term or 1 }}</span>
+                        </div>
+                      </div>
+                      <input
+                        type="range"
+                        id="term"
+                        name="term"
+                        min="1"
+                        max="256"
+                        step="1"
+                        value="{{ request.form.term or 1 }}"
+                        required
+                        oninput="updateLoanTerm(this.value); updateSliderFill(this);"
+                      >
+                      <p class="slider-note">Select how long the loan should last (in months).</p>
+                    </div>
+                
+                    <!-- Grade Score Slider -->
+                    <div class="form-group slider-wrapper">
+                      <div class="label-row">
+                        <label for="grade_score" class="slider-label">
+                          <strong class="slider-text">Grade Score:</strong>
+                        </label>
+                        <div class="value-display">
+                          <span id="gradeScoreValue">{{ request.form.grade_score or 1 }}</span>
+                        </div>
+                      </div>
+                      <input
+                        type="range"
+                        id="grade_score"
+                        name="grade_score"
+                        min="1"
+                        max="35"
+                        step="1"
+                        value="{{ request.form.grade_score or 1 }}"
+                        required
+                        oninput="updateGradeScore(this.value)"
+                      >
+                      <p class="slider-note">Select a grade score from 1 to 35.</p>
+                    </div>
+                
+                    <!-- Employment Length -->
+                    <div class="form-group slider-wrapper">
+                      <div class="label-row">
+                        <label for="emp_length" class="slider-label">
+                          <strong class="slider-text">Employment Length:</strong>
+                        </label>
+                        <div class="value-display">
+                          <span id="empLengthValue">{{ request.form.emp_length or 0 }}</span>
+                        </div>
+                      </div>
+                      <input
+                        type="range"
+                        id="emp_length"
+                        name="emp_length"
+                        min="0"
+                        max="50"
+                        step="1"
+                        value="{{ request.form.emp_length or 0 }}"
+                        required
+                        oninput="updateEmpLength(this.value)"
+                      >
+                      <p class="slider-note">Enter the number of years you've been employed.</p>
+                    </div>
+                
+                    <!-- Home Ownership -->
+                    <div class="form-group full-width">
+                      <label class="slider-label"><strong class="slider-text">Home Ownership:</strong></label>
+                      <div class="button-group" id="homeOwnershipGroup">
+                        <button type="button" class="ownership-btn" data-value="RENT">RENT</button>
+                        <button type="button" class="ownership-btn" data-value="OWN">OWN</button>
+                        <button type="button" class="ownership-btn" data-value="MORTGAGE">MORTGAGE</button>
+                      </div>
+                      <input type="hidden" name="home_ownership" id="homeOwnershipInput" value="{{ request.form.home_ownership }}">
+                    </div>
+                
+                    <!-- Annual Income -->
+                    <div class="form-group">
+                      <label>Annual Income ($):</label>
+                      <input type="number" name="income_all" value="{{ request.form.income_all }}" required>
+                      <p class="slider-note">Client's total income before taxes</p>
+                    </div>
+                
+                    <!-- Credit History -->
+                    <div class="form-group">
+                      <label>Credit History (months):</label>
+                      <input type="number" name="credit_history_months" value="{{ request.form.credit_history_months }}" required>
+                      <p class="slider-note">Months with active credit accounts</p>
+                    </div>
+                
+                    <!-- Loan Purpose -->
+                    <div class="form-group">
+                      <label>Loan Purpose:</label>
+                      <select name="purpose" required>
+                        <option value="">Select</option>
+                        {% for option in [
+                          'debt_consolidation', 'credit_card', 'home_improvement', 'major_purchase',
+                          'small_business', 'vacation', 'house', 'car', 'wedding', 'medical',
+                          'moving', 'educational', 'renewable_energy', 'other'
+                        ] %}
+                        <option value="{{ option }}" {% if request.form.purpose == option %}selected{% endif %}>{{ option.replace('_', ' ').title() }}</option>
+                        {% endfor %}
+                      </select>
+                      <p class="slider-note">Main reason the client is requesting the loan</p>
+                    </div>
+                
+                    <!-- State -->
+                    <div class="form-group">
+                      <label for="addr_state"><strong>State:</strong></label>
+                      <select name="addr_state" id="addr_state" required>
+                        <option value="">Select</option>
+                        {% set states = [
+                          'AK','AL','AR','AZ','CA','CO','CT','DC','DE','FL','GA','HI','IA','ID','IL','IN','KS','KY',
+                          'LA','MA','MD','ME','MI','MN','MO','MS','MT','NC','ND','NE','NH','NJ','NM','NV','NY','OH',
+                          'OK','OR','PA','RI','SC','SD','TN','TX','UT','VA','VT','WA','WI','WV','WY'
+                        ] %}
+                        {% for state in states %}
+                          <option value="{{ state }}" {% if request.form.addr_state == state %}selected{% endif %}>{{ state }}</option>
+                        {% endfor %}
+                      </select>
+                      <p class="slider-note">U.S. state where the client resides or files taxes</p>
+                    </div>
+                
+                    <!-- DTI -->
+                    <div class="form-group slider-wrapper">
+                      <div class="label-row">
+                        <label for="dti" class="slider-label"><strong class="slider-text">DTI:</strong></label>
+                        <div class="value-display">
+                          <span id="dtiValue">{{ request.form.dti_all or 20.0 }}</span><span>%</span>
+                        </div>
+                      </div>
+                      <input type="range"
+                            id="dti"
+                            name="dti_all"
+                            min="0"
+                            max="100"
+                            step="0.1"
+                            value="{{ request.form.dti_all or 20.0 }}"
+                            oninput="updateDTI(this.value)"
+                            required>
+                      <p class="slider-note">Debt-to-Income Ratio</p>
+                    </div>
+                
+                    <!-- Revolving Utilization -->
+                    <div class="form-group slider-wrapper">
+                      <div class="label-row">
+                        <label for="revol_util" class="slider-label"><strong class="slider-text">Revolving Utilization:</strong></label>
+                        <div class="value-display">
+                          <span id="revolUtilValue">{{ request.form.revol_util or 30.0 }}</span><span>%</span>
+                        </div>
+                      </div>
+                      <input type="range"
+                            id="revol_util"
+                            name="revol_util"
+                            min="0"
+                            max="150"
+                            step="0.1"
+                            value="{{ request.form.revol_util or 30.0 }}"
+                            oninput="updateRevolUtil(this.value)"
+                            required>
+                      <p class="slider-note">Credit utilization percentage (%)</p>
+                    </div>
+                
+                    <!-- Credit Accounts -->
+                    <div class="form-group">
+                      <label>Open Credit Accounts:</label>
+                      <input type="number" name="open_acc" value="{{ request.form.open_acc }}" required>
+                      <p class="slider-note">Number of active credit lines</p>
+                    </div>
+                
+                    <div class="form-group">
+                      <label>Public Records:</label>
+                      <input type="number" name="pub_rec" value="{{ request.form.pub_rec }}" required>
+                      <p class="slider-note">Public records in client’s credit file</p>
+                    </div>
+                
+                    <div class="form-group">
+                      <label>Revolving Balance ($):</label>
+                      <input type="number" name="revol_bal" value="{{ request.form.revol_bal }}" required>
+                      <p class="slider-note">Outstanding balance on revolving credit</p>
+                    </div>
+                
+                    <div class="form-group">
+                      <label>Total Credit Accounts:</label>
+                      <input type="number" name="total_acc" value="{{ request.form.total_acc }}" required>
+                      <p class="slider-note">All credit accounts ever held</p>
+                    </div>
+                
+                    <!-- Application Type -->
+                    <div class="form-group full-width">
+                      <label class="slider-label"><strong class="slider-text">Application Type</strong></label>
+                      <div class="button-group" id="applicationTypeGroup">
+                        <button type="button" class="application-btn" data-value="INDIVIDUAL">INDIVIDUAL</button>
+                        <button type="button" class="application-btn" data-value="JOINT">JOINT</button>
+                      </div>
+                      <input type="hidden" name="application_type" id="applicationTypeInput" value="{{ request.form.application_type }}">
+                    </div>
+                
+                    <!-- Final Credit Metrics -->
+                    <div class="form-group">
+                      <label>Delinquencies:</label>
+                      <input type="number" name="acc_now_delinq" value="{{ request.form.acc_now_delinq }}" required>
+                      <p class="slider-note">Number of accounts past due</p>
+                    </div>
+                
+                    <div class="form-group">
+                      <label>Total Collections Amount ($):</label>
+                      <input type="number" name="tot_coll_amt" value="{{ request.form.tot_coll_amt }}" required>
+                      <p class="slider-note">Sum sent to collections</p>
+                    </div>
+                
+                    <div class="form-group full-width">
+                      <label>Total Current Balance ($):</label>
+                      <input type="number" name="tot_cur_bal" value="{{ request.form.tot_cur_bal }}" required>
+                      <p class="slider-note">Outstanding balance across all accounts</p>
+                    </div>
+                  </div> <!-- CLOSE .form-grid -->
+                
+                  <!-- Centered Button -->
+                  <div style="text-align: center;">
+                    <button class="predict-btn" type="submit">Predict Interest Rate</button>
+                  </div>
+                </form>
+                
+
+                {% if prediction %}
+                <div class="outcome-box">
+                  <h3>Risk Assessment Results</h3>
+                  <p><strong>Based on the provided information:</strong></p>
+                  <div class="risk-indicators">
+                    <div class="risk-item">
+                      <div class="risk-percentage">{{ prediction }}%</div>
+                      <div class="risk-label">Predicted Interest Rate</div>
+                    </div>
+                    <div class="risk-item">
+                      <div class="risk-percentage">{{ conf_low }}%</div>
+                      <div class="risk-label">Lower Bound</div>
+                    </div>
+                    <div class="risk-item">
+                      <div class="risk-percentage">{{ conf_high }}%</div>
+                      <div class="risk-label">Upper Bound</div>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+
+              <!-- EXISTING CLIENT FORM -->
+              <div id="form-existing" class="loan-form hidden">
+                <form action="/predict_existing" method="post">
+                  <div class="form-grid">
+                    <div class="form-group"><label>New Loan Amount Requested ($)</label><input type="number" name="loan_solicited" required></div>
+                    <div class="form-group"><label>Requested Loan Period (months)</label><input type="number" name="loan_period_existing" required></div>
+                    <div class="form-group"><label>Previous Loan Amount ($)</label><input type="number" name="loan_given" required></div>
+                    <div class="form-group"><label>Amount Paid So Far ($)</label><input type="number" name="amount_paid" required></div>
+                    <div class="form-group"><label>Previous Loan Length (months)</label><input type="number" name="length" required></div>
+                    <div class="form-group"><label>Remaining Period (months)</label><input type="number" name="remaining_period" required></div>
+                    <div class="form-group"><label>Loan Purpose</label><input type="text" name="purpose_existing" required></div>
+                    <div class="form-group"><label>Employment Status</label><input type="text" name="employment_existing" required></div>
+                    <div class="form-group"><label>City</label><input type="text" name="city_existing" required></div>
+                  </div>
+                  <button class="predict-btn" type="submit">Analyze Risk</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+ 
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>The entirety of this site is protected by copyright © 2000–2025 Loan Predictor, Inc.</p>
+    </div>
+  </footer>
+  
+
+  <script src="/project/static/js/script.js"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
