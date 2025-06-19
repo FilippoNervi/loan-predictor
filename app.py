@@ -6,14 +6,14 @@ import os
 app = Flask(__name__)
 
 # Load model, columns, and MAE
-with open("interest_rate_model1.pkl", "rb") as f:
+with open("interest_rate_model.pkl", "rb") as f:
     model = pickle.load(f)
 print("Model loaded:", type(model))  # Confirm model class
 
-with open("interest_rate_columns1.pkl", "rb") as f:
+with open("interest_rate_columns.pkl", "rb") as f:
     expected_columns = pickle.load(f)
 
-with open("interest_rate_mae1.pkl", "rb") as f:
+with open("interest_rate_mae.pkl", "rb") as f:
     mae = pickle.load(f)
 
 @app.route('/')
