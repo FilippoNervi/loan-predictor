@@ -6,14 +6,14 @@ import os
 app = Flask(__name__)
 
 # Load model, columns, and MAE
-with open("interest_rate_model.pkl", "rb") as f:
+with open("interest_rate_model1.pkl", "rb") as f:
     model = pickle.load(f)
 print("Model loaded:", type(model))  # Confirm model class
 
-with open("interest_rate_columns.pkl", "rb") as f:
+with open("interest_rate_columns1.pkl", "rb") as f:
     expected_columns = pickle.load(f)
 
-with open("interest_rate_mae.pkl", "rb") as f:
+with open("interest_rate_mae1.pkl", "rb") as f:
     mae = pickle.load(f)
 
 @app.route('/')
@@ -61,5 +61,4 @@ def predict_interest():
         return f"Error during prediction: {e}"
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))  # Render uses PORT env var
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)
