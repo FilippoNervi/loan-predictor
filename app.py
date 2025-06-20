@@ -5,18 +5,16 @@ import os
 
 app = Flask(__name__)
 
-# Load model
-with open("rf_model.pkl", "rb") as f:
+# Load model, columns, and MAE
+with open("interest_rate_model.pkl", "rb") as f:
     model = pickle.load(f)
 print("Model loaded:", type(model))  # Confirm model class
 
-# Load expected feature columns
-with open("training_columns.pkl", "rb") as f:
+with open("interest_rate_columns.pkl", "rb") as f:
     expected_columns = pickle.load(f)
 
-# Load MAE from text file
-with open("mae.txt", "r") as f:
-    mae = float(f.read().strip())
+with open("interest_rate_mae.pkl", "rb") as f:
+    mae = pickle.load(f)
 
 @app.route('/')
 def home():
@@ -61,9 +59,9 @@ def predict_interest():
 
     except Exception as e:
         return f"Error during prediction: {e}"
+
 import os
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))  # Use Railway's port or fallback to 5000 locally
     app.run(host='0.0.0.0', port=port)
-
