@@ -279,6 +279,7 @@ nav {
   font-family: inherit;
   transition: all 0.3s ease;
   height: 42px;
+  padding-left: 15px;  /* THIS PART NEEDS TO BE CORRECTED -- Toogle bars should be excluded */
   
 }
 
