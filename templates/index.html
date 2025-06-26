@@ -33,9 +33,9 @@
             <div class="bar"></div>
           </div>
           <ul class="nav-links" id="nav-links">
+            <li><a href="{{ url_for('dataset') }}">Data Set</a></li>
+            <li><a href="{{ url_for('ml') }}">ML Model</a></li>
             <li><a href="{{ url_for('about') }}">Dashboard</a></li>
-            <li><a href="#dataset">Data Set</a></li>
-            <li><a href="#model">ML Model</a></li>
             <li><a href="{{ url_for('home') }}">Predictor</a></li>
           </ul>
         </div>
@@ -71,8 +71,16 @@
               <!-- NEW CLIENT FORM -->
               <div id="form-new" class="loan-form {% if show_result %}{% else %}hidden{% endif %}">
                 <form action="/predict_interest#form-new" method="post">
+
+                  <!-- Demo Buttons -->
+                  <div class="demo-buttons">
+                    <button type="button" onclick="fillDemo('scenario1')">Low Risk</button>
+                    <button type="button" onclick="fillDemo('scenario2')">Medium Risk</button>
+                    <button type="button" onclick="fillDemo('scenario3')">High Risk</button>
+                  </div>
+                  
+      
                   <div class="form-grid">
-                
                     <!-- Loan Amount Slider -->
                     <div class="form-group slider-wrapper">
                       <div class="label-row">
@@ -177,21 +185,21 @@
                     </div>
                 
                     <!-- Annual Income -->
-                    <div class="form-group">
+                    <div class="form-group1">
                       <label>Annual Income ($):</label>
                       <input type="number" name="income_all" value="{{ request.form.income_all }}" required>
                       <p class="slider-note">Client's total income before taxes</p>
                     </div>
                 
                     <!-- Credit History -->
-                    <div class="form-group">
+                    <div class="form-group1">
                       <label>Credit History (months):</label>
                       <input type="number" name="credit_history_months" value="{{ request.form.credit_history_months }}" required>
                       <p class="slider-note">Months with active credit accounts</p>
                     </div>
                 
                     <!-- Loan Purpose -->
-                    <div class="form-group">
+                    <div class="form-group1">
                       <label>Loan Purpose:</label>
                       <select name="purpose" required>    
                         <option value="">Select</option>
@@ -207,7 +215,7 @@
                     </div>
                 
                     <!-- State -->
-                    <div class="form-group">
+                    <div class="form-group1">
                       <label for="addr_state"><strong>State:</strong></label>
                       <select name="addr_state" id="addr_state" required>
                         <option value="">Select</option>
@@ -264,25 +272,25 @@
                     </div>
                 
                     <!-- Credit Accounts -->
-                    <div class="form-group">
+                    <div class="form-group1">
                       <label>Open Credit Accounts:</label>
                       <input type="number" name="open_acc" value="{{ request.form.open_acc }}" required>
                       <p class="slider-note">Number of active credit lines</p>
                     </div>
                 
-                    <div class="form-group">
+                    <div class="form-group1">
                       <label>Public Records:</label>
                       <input type="number" name="pub_rec" value="{{ request.form.pub_rec }}" required>
                       <p class="slider-note">Public records in client’s credit file</p>
                     </div>
                 
-                    <div class="form-group">
+                    <div class="form-group1">
                       <label>Revolving Balance ($):</label>
                       <input type="number" name="revol_bal" value="{{ request.form.revol_bal }}" required>
                       <p class="slider-note">Outstanding balance on revolving credit</p>
                     </div>
                 
-                    <div class="form-group">
+                    <div class="form-group1">
                       <label>Total Credit Accounts:</label>
                       <input type="number" name="total_acc" value="{{ request.form.total_acc }}" required>
                       <p class="slider-note">All credit accounts ever held</p>
@@ -299,13 +307,13 @@
                     </div>
                 
                     <!-- Final Credit Metrics -->
-                    <div class="form-group">
+                    <div class="form-group1">
                       <label>Delinquencies:</label>
                       <input type="number" name="acc_now_delinq" value="{{ request.form.acc_now_delinq }}" required>
                       <p class="slider-note">Number of accounts past due</p>
                     </div>
                 
-                    <div class="form-group">
+                    <div class="form-group1">
                       <label>Total Collections Amount ($):</label>
                       <input type="number" name="tot_coll_amt" value="{{ request.form.tot_coll_amt }}" required>
                       <p class="slider-note">Sum sent to collections</p>
@@ -328,24 +336,87 @@
                 {% if prediction %}
                 <div class="outcome-box">
                   <h3>Risk Assessment Results</h3>
-                  <p><strong>Based on the provided information:</strong></p>
-                  <div class="risk-indicators">
-                    <div class="risk-item">
-                      <div class="risk-percentage">{{ prediction }}%</div>
-                      <div class="risk-label">Predicted Interest Rate</div>
+                
+                  <div class="risk-layout">
+                
+                    <!-- Final Prediction -->
+                    <div class="risk-box highlight">
+                      <h4>Final Prediction</h4>
+                
+                      <div class="risk-section">
+                        <p class="rate-value">{{ prediction }}%</p>
+                        <p class="section-label">Interest Rate</p>
+                      </div>
+                
+                      <div class="risk-section">
+                        <p class="section-label">Class Probabilities:</p>
+                        {% for label, prob in class_probs.items() %}
+                          <p class="prob-line {{ label | lower | replace(' ', '-') }}">
+                            {{ label }}: {{ "%.2f"|format(prob * 100) }}%
+                          </p>
+                        {% endfor %}
+                      </div>
+                
+                      <div class="risk-section">
+                        <p class="section-label">Predicted Outcome:</p>
+                        <p class="outcome">{{ predicted_label }}</p>
+                      </div>
                     </div>
-                    <div class="risk-item">
-                      <div class="risk-percentage">{{ conf_low }}%</div>
-                      <div class="risk-label">Lower Bound</div>
-                    </div>
-                    <div class="risk-item">
-                      <div class="risk-percentage">{{ conf_high }}%</div>
-                      <div class="risk-label">Upper Bound</div>
+                
+                    <!-- Lower and Upper Bound -->
+                    <div class="risk-subrow">
+                      <div class="risk-box">
+                        <h4>Lower Bound</h4>
+                
+                        <div class="risk-section">
+                          <p class="rate-value">{{ conf_low }}%</p>
+                          <p class="section-label">Interest Rate</p>
+                        </div>
+                
+                        <div class="risk-section">
+                          <p class="section-label">Class Probabilities:</p>
+                          {% for label, prob in class_probs_low.items() %}
+                            <p class="prob-line {{ label | lower | replace(' ', '-') }}">
+                              {{ label }}: {{ "%.2f"|format(prob * 100) }}%
+                            </p>
+                          {% endfor %}
+                        </div>
+                
+                        <div class="risk-section">
+                          <p class="section-label">Predicted Outcome:</p>
+                          <p class="outcome">{{ predicted_label_low }}</p>
+                        </div>
+                      </div>
+                
+                      <div class="risk-box">
+                        <h4>Upper Bound</h4>
+                
+                        <div class="risk-section">
+                          <p class="rate-value">{{ conf_high }}%</p>
+                          <p class="section-label">Interest Rate</p>
+                        </div>
+                
+                        <div class="risk-section">
+                          <p class="section-label">Class Probabilities:</p>
+                          {% for label, prob in class_probs_high.items() %}
+                            <p class="prob-line {{ label | lower | replace(' ', '-') }}">
+                              {{ label }}: {{ "%.2f"|format(prob * 100) }}%
+                            </p>
+                          {% endfor %}
+                        </div>
+                
+                        <div class="risk-section">
+                          <p class="section-label">Predicted Outcome:</p>
+                          <p class="outcome">{{ predicted_label_high }}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
                 {% endif %}
-              </div>
+                
+                
+                
 
               <!-- EXISTING CLIENT FORM -->
               <div id="form-existing" class="loan-form hidden">

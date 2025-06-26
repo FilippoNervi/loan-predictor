@@ -244,3 +244,101 @@ window.addEventListener('DOMContentLoaded', () => {
   setupHomeOwnershipButtons();
   setupApplicationTypeButtons();
 });
+
+// Scenarios 
+function fillDemo(scenario) {
+  const values = {
+    scenario2: {
+      loan_amnt: 15000,
+      term: 36,
+      grade_score: 10,
+      emp_length: 5,
+      income_all: 55000,
+      dti_all: 18,
+      credit_history_months: 36,
+      home_ownership: "RENT",
+      purpose: "debt_consolidation",
+      addr_state: "CA",
+      revol_util: 25,
+      open_acc: 5,
+      pub_rec: 0,
+      revol_bal: 3000,
+      total_acc: 20,
+      application_type: "INDIVIDUAL",
+      acc_now_delinq: 0,
+      tot_coll_amt: 0,
+      tot_cur_bal: 15000
+    },
+    scenario3: {
+      loan_amnt: 50000,
+      term: 60,
+      grade_score: 25,
+      emp_length: 15,
+      income_all: 120000,
+      dti_all: 10,
+      credit_history_months: 120,
+      home_ownership: "OWN",
+      purpose: "home_improvement",
+      addr_state: "NY",
+      revol_util: 12,
+      open_acc: 8,
+      pub_rec: 1,
+      revol_bal: 6000,
+      total_acc: 30,
+      application_type: "JOINT",
+      acc_now_delinq: 1,
+      tot_coll_amt: 100,
+      tot_cur_bal: 70000
+    },
+    scenario1: {
+      loan_amnt: 8000,
+      term: 12,
+      grade_score: 5,
+      emp_length: 1,
+      income_all: 28000,
+      dti_all: 35,
+      credit_history_months: 10,
+      home_ownership: "MORTGAGE",
+      purpose: "vacation",
+      addr_state: "FL",
+      revol_util: 50,
+      open_acc: 2,
+      pub_rec: 0,
+      revol_bal: 1000,
+      total_acc: 5,
+      application_type: "INDIVIDUAL",
+      acc_now_delinq: 0,
+      tot_coll_amt: 0,
+      tot_cur_bal: 2500
+    }
+  };
+
+  const data = values[scenario];
+  if (!data) return;
+
+  // Fill input fields
+  for (const key in data) {
+    const el = document.querySelector(`[name="${key}"]`);
+    if (el) {
+      el.value = data[key];
+      el.dispatchEvent(new Event('input')); // Trigger slider or change events
+    }
+  }
+
+  // Update home ownership buttons
+  document.querySelectorAll('.ownership-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-value') === data.home_ownership);
+  });
+  document.getElementById('homeOwnershipInput').value = data.home_ownership;
+
+  // Update application type buttons
+  document.querySelectorAll('.application-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-value') === data.application_type);
+  });
+  document.getElementById('applicationTypeInput').value = data.application_type;
+
+  // Trigger the live prediction
+  updateLivePrediction();
+}
+
+
