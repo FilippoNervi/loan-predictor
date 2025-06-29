@@ -4,31 +4,29 @@ function toggleMenu() {
   navLinks.classList.toggle('show');
 }
 
-// === Form display toggle ===
 function showForm(clientType) {
   const formNew = document.getElementById('form-new');
   const formExisting = document.getElementById('form-existing');
   const buttons = document.querySelectorAll('.client-btn');
   const formContainer = document.querySelector('.form-container');
 
-  const isNew = clientType === 'new';
-  const targetForm = isNew ? formNew : formExisting;
-
-  if (!targetForm.classList.contains('hidden')) {
-    targetForm.classList.add('hidden');
-    buttons.forEach(btn => btn.classList.remove('active'));
-    formContainer.style.marginTop = '0px';
-    return;
-  }
-
+  // Hide both sections first
   formNew.classList.add('hidden');
   formExisting.classList.add('hidden');
-  targetForm.classList.remove('hidden');
 
+  // Remove active state from all buttons
   buttons.forEach(btn => btn.classList.remove('active'));
-  const clickedButton = document.querySelector(`.client-btn[onclick*="${clientType}"]`);
-  if (clickedButton) clickedButton.classList.add('active');
 
+  // Show the selected section and activate the correct button
+  if (clientType === 'new') {
+    formNew.classList.remove('hidden');
+    document.querySelector('.client-btn[onclick*="new"]').classList.add('active');
+  } else if (clientType === 'existing') {
+    formExisting.classList.remove('hidden');
+    document.querySelector('.client-btn[onclick*="existing"]').classList.add('active');
+  }
+
+  // Set margin if either section is shown
   formContainer.style.marginTop = '40px';
 }
 

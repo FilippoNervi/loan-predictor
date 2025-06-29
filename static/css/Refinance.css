@@ -1,0 +1,827 @@
+/* CSS Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  color: #333;
+  background-color: #dc2626;
+}
+
+/* ===============================================
+   NAVIGATION STYLES
+   =============================================== */
+
+nav {
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+  max-width: 100%;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+/* Left Section */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.nav-left h3 {
+  font-size: 24px;
+  font-weight: 700;
+  background: #333;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Right Section */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.nav-links a:hover {
+  background-color: #dc2626;
+  color: white;
+}
+
+/* Hamburger (mobile only) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.hamburger .bar {
+  width: 25px;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
+}
+
+/* ===============================================
+   MAIN CONTENT STYLES
+   =============================================== */
+
+.main-content {
+  background: white;
+  margin: 30px 5% 0;
+  border-radius: 25px;
+  flex: 1;
+  min-height: 70vh;
+}
+
+.main-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+}
+
+.main-content p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ===============================================
+   TABLE STYLES
+   =============================================== */
+
+#top-100-table {
+  overflow-x: auto;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 2px solid #dc2626;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 0.95rem;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.table thead {
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+  color: rgb(0, 0, 0);
+}
+
+.table th {
+  padding: 18px 12px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  white-space: normal; /* allows wrapping */
+  word-break: break-word; /* breaks long words */
+}
+
+.table th:first-child {
+  border-top-left-radius: 15px;
+}
+
+.table th:last-child {
+  border-top-right-radius: 15px;
+}
+
+.table td {
+  padding: 15px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  vertical-align: middle;
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #fff5f5;
+  transform: scale(1.01);
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.1);
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.table tbody tr:nth-child(even):hover {
+  background-color: #fff5f5;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 15px;
+}
+
+.table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 15px;
+}
+
+/* Column-specific styling */
+.table td:first-child {
+  font-weight: 600;
+  color: #dc2626;
+}
+
+/* Numeric columns */
+.table td:nth-child(n+2) {
+  font-family: 'Courier New', monospace;
+  text-align: right;
+}
+
+/* Make specific columns stand out */
+.table th:nth-child(1),
+.table td:nth-child(1) {
+  background-color: rgba(220, 38, 38, 0.05);
+  font-weight: 700;
+}
+
+/* ===============================================
+   TABLE PAGINATION STYLES
+   =============================================== */
+
+/* Hide rows beyond the first 20 initially */
+.table tbody tr:nth-child(n+21) {
+  display: none;
+}
+
+.table tbody tr:nth-child(n+21).show-more {
+  display: table-row;
+}
+
+/* Show More Button Container */
+.table-controls {
+  text-align: center;
+  margin: 30px 0;
+  padding: 20px;
+}
+
+.show-more-btn {
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.show-more-btn:hover {
+  background: linear-gradient(135deg, #991b1b, #7f1d1d);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+}
+
+.show-more-btn:active {
+  transform: translateY(0);
+}
+
+.show-more-btn.hidden {
+  display: none;
+}
+
+/* Row counter display */
+.row-counter {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.row-counter span {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+/* Animation for newly revealed rows */
+@keyframes slideInFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.table tbody tr.newly-revealed {
+  animation: slideInFade 0.4s ease-out;
+}
+
+/* ===============================================
+   ADDITIONAL CONTENT STYLES
+   =============================================== */
+
+.additional-content {
+  margin-top: 60px;
+  padding: 40px;
+  background: linear-gradient(135deg, #f8f9ff 0%, #fff5f5 100%);
+  border-radius: 20px;
+  border: 2px solid rgba(220, 38, 38, 0.1);
+}
+
+.additional-content h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #dc2626;
+  text-align: center;
+  margin-bottom: 30px;
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.insight-card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  border: 2px solid rgba(220, 38, 38, 0.1);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.insight-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(220, 38, 38, 0.15);
+}
+
+.insight-card h3 {
+  color: #dc2626;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.insight-card p {
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+  text-align: left;
+}
+
+.action-section {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  border: 2px solid rgba(220, 38, 38, 0.1);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.action-section h3 {
+  color: #dc2626;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.action-list {
+  list-style: none;
+  padding: 0;
+}
+
+.action-list li {
+  padding: 12px 0;
+  padding-left: 30px;
+  position: relative;
+  color: #555;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.action-list li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  color: #dc2626;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.action-list li:last-child {
+  border-bottom: none;
+}
+
+/* ===============================================
+   FOOTER STYLES
+   =============================================== */
+
+.site-footer {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 30px 20px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-family: Arial, Helvetica, sans-serif;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 60px;
+}
+
+.site-footer p {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  letter-spacing: 0.5px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Add some animation for table load */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#top-100-table {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Enhanced scrollbar for table */
+#top-100-table::-webkit-scrollbar {
+  height: 8px;
+}
+
+#top-100-table::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+#top-100-table::-webkit-scrollbar-thumb {
+  background: #dc2626;
+  border-radius: 4px;
+}
+
+#top-100-table::-webkit-scrollbar-thumb:hover {
+  background: #991b1b;
+}
+
+ /* ===== Impact Summary Section ===== */
+.impact-summary-combined {
+  margin: 60px auto;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  background-color: #fef2f2;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+}
+
+.impact-summary-text {
+  flex: 1;
+  font-family: 'Courier New', monospace;
+  white-space: pre-wrap;
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+.impact-summary-text b {
+  color: #b91c1c;
+  font-size: 1.25rem;
+}
+
+.impact-summary-img {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.impact-summary-img img {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive layout for mobile/tablet */
+@media (max-width: 900px) {
+  .impact-summary-combined {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .impact-summary-img img {
+    max-height: 250px;
+  }
+
+  .impact-summary-text {
+    font-size: 1.05rem;
+  }
+}
+
+
+/* Lookup Form */
+.lookup-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-top: 40px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-width: 600px;
+}
+
+.lookup-form h2 {
+  margin-bottom: 15px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.lookup-form label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.lookup-form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.lookup-form button {
+  padding: 10px 20px;
+  background-color: #c0392b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.lookup-form button:hover {
+  background-color: #a93226;
+}
+
+/* Result Sections */
+.client-result {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #fcfcfc;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  max-width: 600px;
+}
+
+.client-result h3 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.client-result ul {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+
+.client-result li {
+  line-height: 1.8;
+  color: #444;
+}
+
+.error-message {
+  color: red;
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+
+
+
+/* ===============================================
+   RESPONSIVE DESIGN
+   =============================================== */
+
+/* Large Screens (Desktops < 1200px) */
+@media (max-width: 1200px) {
+  .nav-links a {
+    font-size: 18px;
+    padding: 8px 14px;
+  }
+
+  .main-content h1 {
+    font-size: 2.2rem;
+  }
+}
+
+/* Medium Screens (Tablets < 1024px) */
+@media (max-width: 1024px) {
+  .nav-links a {
+    font-size: 16px;
+    padding: 6px 12px;
+  }
+
+  .main-content h1 {
+    font-size: 2rem;
+  }
+
+  .table {
+    font-size: 0.9rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 12px 10px;
+  }
+
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .additional-content {
+    padding: 30px 20px;
+  }
+}
+
+/* Small Screens (Narrow Tablets / Large Mobiles < 900px) */
+@media (max-width: 900px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    padding: 20px 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-links a {
+    font-size: 15px;
+    padding: 12px 20px;
+  }
+
+  .main-content {
+    margin: 20px 3% 0;
+  }
+
+  .main-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .table {
+    font-size: 0.85rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px 8px;
+  }
+
+  /* Make table horizontally scrollable on small screens */
+  #top-100-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table {
+    min-width: 600px;
+  }
+
+  .additional-content {
+    margin-top: 40px;
+    padding: 25px 15px;
+  }
+
+  .insight-card {
+    padding: 20px;
+  }
+
+  .action-section {
+    padding: 20px;
+  }
+}
+
+/* Extra Small Screens (Phones < 480px) */
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 0 20px;
+  }
+
+  .main-content {
+    margin: 15px 2% 0;
+  }
+
+  .main-content h1 {
+    font-size: 1.6rem;
+  }
+
+  .main-content p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  .table {
+    font-size: 0.8rem;
+    min-width: 500px;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px 6px;
+  }
+
+  .table th {
+    font-size: 0.85rem;
+  }
+
+  .additional-content h2 {
+    font-size: 1.6rem;
+  }
+
+  .insight-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .action-section h3 {
+    font-size: 1.3rem;
+  }
+
+  .action-list li {
+    font-size: 1rem;
+    padding-left: 25px;
+  }
+}
+
+/* ===============================================
+   UTILITY CLASSES
+   =============================================== */
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.font-weight-bold {
+  font-weight: 700;
+}
+
+.hidden {
+  display: none;
+}

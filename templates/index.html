@@ -33,9 +33,9 @@
             <div class="bar"></div>
           </div>
           <ul class="nav-links" id="nav-links">
-
             <li><a href="{{ url_for('ml') }}">ML Model</a></li>
             <li><a href="{{ url_for('about') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('rf') }}">Refinance</a></li>
             <li><a href="{{ url_for('home') }}">Predictor</a></li>
           </ul>
         </div>
@@ -453,7 +453,7 @@
                   <div class="form-grid">
                     <div class="form-group"><label>New Loan Amount Requested ($)</label><input type="number" name="loan_solicited" required></div>
                     <div class="form-group"><label>Requested Loan Period (months)</label><input type="number" name="loan_period_existing" required></div>
-                    <div class="form-group"><labael>Previous Loan Amount ($)</label><input type="number" name="loan_given" required></div>
+                    <div class="form-group"><label>Previous Loan Amount ($)</label><input type="number" name="loan_given" required></div>
                     <div class="form-group"><label>Amount Paid So Far ($)</label><input type="number" name="amount_paid" required></div>
                     <div class="form-group"><label>Previous Loan Length (months)</label><input type="number" name="length" required></div>
                     <div class="form-group"><label>Remaining Period (months)</label><input type="number" name="remaining_period" required></div>
@@ -461,7 +461,9 @@
                     <div class="form-group"><label>Employment Status</label><input type="text" name="employment_existing" required></div>
                     <div class="form-group"><label>City</label><input type="text" name="city_existing" required></div>
                   </div>
-                  <button class="predict-btn" type="submit">Analyze Risk</button>
+                  <div style="text-align: center;">
+                    <button class="predict-btn" type="submit">Analyze Risk</button>
+                  </div>
                 </form>
               </div>
             </div>

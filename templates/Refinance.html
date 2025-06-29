@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Refinance Candidates</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Bank_logo_black.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/refinance.css') }}">
+</head>
+<body>
+  <div class="page-content">
+    <!-- Navigation Bar -->
+    <nav>
+      <div class="nav-container">
+        <div class="nav-left">
+          <div class="logo-icon">
+            <img src="{{ url_for('static', filename='img/Bank_logo_black.png') }}" alt="Logo" />
+          </div>
+          <h3>Loan Predictor</h3>
+        </div>
+        <div class="nav-right">
+          <div class="hamburger" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+          <ul class="nav-links" id="nav-links">
+            <li><a href="{{ url_for('ml') }}">ML Model</a></li>
+            <li><a href="{{ url_for('about') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('rf') }}" class="active">Refinance</a></li>
+            <li><a href="{{ url_for('home') }}">Predictor</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content" style="padding: 40px 20px;">
+      <h1>Top 100 Refinance Candidates</h1>
+      <p>Below is the table with clients who are top candidates for refinancing based on our model's evaluation.</p>
+
+      <div id="top-100-table">
+        {{ top_100_table|safe }}
+      </div>
+
+      <!-- Table Controls -->
+      <div class="table-controls">
+        <div class="row-counter">
+          Showing <span id="visible-rows">20</span> of <span id="total-rows">100</span> candidates
+        </div>
+        <button id="show-more-btn" class="show-more-btn" onclick="showMoreRows()">Show More Candidates</button>
+        <button id="show-less-btn" class="show-more-btn hidden" onclick="showLessRows()">Show Less</button>
+      </div>
+
+      <!-- Additional Content Section -->
+      <div class="additional-content">
+        <h2>Global Impact Summary</h2>
+        <div class="impact-summary-combined">
+          <div class="impact-summary-text">
+            <pre>
+=== GLOBAL IMPACT SUMMARY ===
+Total current clients:           549,574
+Viable clients analyzed:         10,490
+Clients recommended to refinance: 7,267
+Clients with no action:           3,223
+Accepted refinancing (simulated): 7,267
+
+Total refinancing cost:        €726,700.00
+
+Average gain per refinanced client:    €3,545.93
+Average gain per € loaned:             0.1919
+Average p_default before refinancing:  0.6098
+Average p_default after refinancing:   0.4230
+Average risk reduction:                0.1868
+Expected gain vs. base income:         42.96%
+Share of total portfolio refinanced:   1.32%
+Return on refinancing cost (ROI):      35.46x
+Break-even reached:                    True
+Avg net gain per viable client:        €2,456.46
+Avg term extension (refinanced):       36.0 months
+Refinancing success rate:              100.00%
+            </pre>
+          </div>
+          <div class="impact-summary-img">
+            <img src="{{ url_for('static', filename='img/Risk Graph.png') }}" alt="Risk Graph" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Client Lookup Section -->
+      <div class="lookup-form">
+        <h2>Search Individual Client</h2>
+        <form method="POST">
+          <label for="member_id">Enter Member ID:</label>
+          <input type="text" name="member_id" required>
+          <button type="submit">Search</button>
+        </form>
+        {% if error %}
+          <p class="error-message">{{ error }}</p>
+        {% endif %}
+      </div>
+
+      {% if client_before %}
+      <div class="client-result">
+        <h3>Before Refinancing</h3>
+        <ul>
+          <li>Loan Amount: €{{ client_before.loan_amnt }}</li>
+          <li>Interest Rate: {{ client_before.int_rate }}%</li>
+          <li>Term: {{ client_before.term_months }} months</li>
+          <li>Default Probability: {{ client_before.p_default }}</li>
+          <li>Expected Income: €{{ client_before.expected_income_actual }}</li>
+        </ul>
+      </div>
+      {% if client_after %}
+      <div class="client-result">
+        <h3>After Refinancing</h3>
+        <ul>
+          <li>New Interest Rate: {{ client_after.int_rate_refin }}%</li>
+          <li>New Term: {{ client_after.term_months_refin }} months</li>
+          <li>New Default Probability: {{ client_after.p_default_refin }}</li>
+          <li>Expected Income: €{{ client_after.expected_income_refin }}</li>
+          <li>Net Improvement: €{{ client_after.net_improvement }}</li>
+          <li>Strategy: {{ client_after.strategy }}</li>
+        </ul>
+      </div>
+      {% else %}
+        <p class="error-message">This client was not selected for refinancing.</p>
+      {% endif %}
+      {% endif %}
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>© 2000–2025 Loan Predictor, Inc.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/script2.js') }}"></script>
+</body>
+</html>

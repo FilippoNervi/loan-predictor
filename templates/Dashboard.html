@@ -29,9 +29,10 @@
             <div class="bar"></div>
           </div>
           <ul class="nav-links" id="nav-links">
-            <li><a href="{{ url_for('dataset') }}">Data Set</a></li>
+
             <li><a href="{{ url_for('ml') }}">ML Model</a></li>
             <li><a href="{{ url_for('about') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('rf') }}">Refinance</a></li>
             <li><a href="{{ url_for('home') }}">Predictor</a></li>
           </ul>
         </div>
@@ -43,77 +44,81 @@
       <h2 class="section-title">Loan Risk Dashboards</h2>
       <p class="section-subtitle">Explore insights across different perspectives with our Tableau dashboards.</p>
 
-      <!-- Dashboard 1: Overview of Risk -->
-      <div class="tableau-container">
-        <div class='tableauPlaceholder' id='viz1750326996929' style='position: relative'>
-          <noscript>
-            <a href='#'><img alt='Overview of Risk' src='https://public.tableau.com/static/images/ZZ/ZZWRTP8QJ/1_rss.png' style='border: none' /></a>
-          </noscript>
-          <object class='tableauViz' style='display:none;'>
-            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-            <param name='embed_code_version' value='3' />
-            <param name='path' value='shared/ZZWRTP8QJ' />
-            <param name='toolbar' value='yes' />
-            <param name='static_image' value='https://public.tableau.com/static/images/ZZ/ZZWRTP8QJ/1.png' />
-            <param name='animate_transition' value='yes' />
-            <param name='display_static_image' value='yes' />
-            <param name='display_spinner' value='yes' />
-            <param name='display_overlay' value='yes' />
-            <param name='display_count' value='yes' />
-            <param name='language' value='en-GB' />
-            <param name='filter' value='publish=yes' />
-          </object>
-        </div>
+    <!-- Dashboard 1: Risk Overview -->
+    <div class="tableau-container">
+      <div class='tableauPlaceholder' id='viz1750326996929' style='position: relative'>
+        <noscript>
+          <a href='#'><img alt='Risk Overview' src='https://public.tableau.com/static/images/Ri/Risk_Overview_Final/RiskOverview/1_rss.png' style='border: none' /></a>
+        </noscript>
+        <object class='tableauViz' style='display:none;'>
+          <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+          <param name='embed_code_version' value='3' />
+          <param name='site_root' value='' />
+          <param name='name' value='Risk_Overview_Final/RiskOverview' />
+          <param name='tabs' value='no' />
+          <param name='toolbar' value='yes' />
+          <param name='static_image' value='https://public.tableau.com/static/images/Ri/Risk_Overview_Final/RiskOverview/1.png' />
+          <param name='animate_transition' value='yes' />
+          <param name='display_static_image' value='yes' />
+          <param name='display_spinner' value='yes' />
+          <param name='display_overlay' value='yes' />
+          <param name='display_count' value='yes' />
+          <param name='language' value='en-GB' />
+          <param name='filter' value='publish=yes' />
+        </object>
       </div>
+    </div>
 
-      <!-- Dashboard 2: Geographical Risk -->
-      <div class="tableau-container" style="margin-top: 40px;">
-        <div class='tableauPlaceholder' id='viz1750418316359' style='position: relative'>
-          <noscript>
-            <a href='#'><img alt='Geographical Risk' src='https://public.tableau.com/static/images/C2/C27Q9Y4TF/1_rss.png' style='border: none' /></a>
-          </noscript>
-          <object class='tableauViz' style='display:none;'>
-            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-            <param name='embed_code_version' value='3' />
-            <param name='path' value='shared/C27Q9Y4TF' />
-            <param name='toolbar' value='yes' />
-            <param name='static_image' value='https://public.tableau.com/static/images/C2/C27Q9Y4TF/1.png' />
-            <param name='animate_transition' value='yes' />
-            <param name='display_static_image' value='yes' />
-            <param name='display_spinner' value='yes' />
-            <param name='display_overlay' value='yes' />
-            <param name='display_count' value='yes' />
-            <param name='language' value='en-GB' />
-            <param name='filter' value='publish=yes' />
-          </object>
-        </div>
+    <!-- Dashboard 2: Geographic Risk Distribution -->
+    <div class="tableau-container" style="margin-top: 40px;">
+      <div class='tableauPlaceholder' id='viz1750418316359' style='position: relative'>
+        <noscript>
+          <a href='#'><img alt='Geographic Risk' src='https://public.tableau.com/static/images/Ge/Geographic_Risk_Distribution_Final/Dashboard2/1_rss.png' style='border: none' /></a>
+        </noscript>
+        <object class='tableauViz' style='display:none;'>
+          <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+          <param name='embed_code_version' value='3' />
+          <param name='site_root' value='' />
+          <param name='name' value='Geographic_Risk_Distribution_Final/Dashboard2' />
+          <param name='tabs' value='no' />
+          <param name='toolbar' value='yes' />
+          <param name='static_image' value='https://public.tableau.com/static/images/Ge/Geographic_Risk_Distribution_Final/Dashboard2/1.png' />
+          <param name='animate_transition' value='yes' />
+          <param name='display_static_image' value='yes' />
+          <param name='display_spinner' value='yes' />
+          <param name='display_overlay' value='yes' />
+          <param name='display_count' value='yes' />
+          <param name='language' value='en-GB' />
+          <param name='filter' value='publish=yes' />
+        </object>
       </div>
+    </div>
 
-      <!-- Dashboard 3: Loan Specific Risk -->
-      <div class="tableau-container" style="margin-top: 40px;">
-        <div class='tableauPlaceholder' id='viz1750418053866' style='position: relative'>
-          <noscript>
-            <a href='#'><img alt='Loan Specific Risk' src='https://public.tableau.com/static/images/Lo/Loan_Specific_Risk_c1/LoanSpecificRisk/1_rss.png' style='border: none' /></a>
-          </noscript>
-          <object class='tableauViz' style='display:none;'>
-            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-            <param name='embed_code_version' value='3' />
-            <param name='site_root' value='' />
-            <param name='name' value='Loan_Specific_Risk_c1/LoanSpecificRisk' />
-            <param name='tabs' value='no' />
-            <param name='toolbar' value='yes' />
-            <param name='static_image' value='https://public.tableau.com/static/images/Lo/Loan_Specific_Risk_c1/LoanSpecificRisk/1.png' />
-            <param name='animate_transition' value='yes' />
-            <param name='display_static_image' value='yes' />
-            <param name='display_spinner' value='yes' />
-            <param name='display_overlay' value='yes' />
-            <param name='display_count' value='yes' />
-            <param name='language' value='en-GB' />
-          </object>
-        </div>
+    <!-- Dashboard 3: Loan Specific Risk -->
+    <div class="tableau-container" style="margin-top: 40px;">
+      <div class='tableauPlaceholder' id='viz1750418053866' style='position: relative'>
+        <noscript>
+          <a href='#'><img alt='Loan Specific Risk' src='https://public.tableau.com/static/images/Ri/Risk_Segmentation_Over_Time_Final/LoanSpecificRisk/1_rss.png' style='border: none' /></a>
+        </noscript>
+        <object class='tableauViz' style='display:none;'>
+          <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+          <param name='embed_code_version' value='3' />
+          <param name='site_root' value='' />
+          <param name='name' value='Risk_Segmentation_Over_Time_Final/LoanSpecificRisk' />
+          <param name='tabs' value='no' />
+          <param name='toolbar' value='yes' />
+          <param name='static_image' value='https://public.tableau.com/static/images/Ri/Risk_Segmentation_Over_Time_Final/LoanSpecificRisk/1.png' />
+          <param name='animate_transition' value='yes' />
+          <param name='display_static_image' value='yes' />
+          <param name='display_spinner' value='yes' />
+          <param name='display_overlay' value='yes' />
+          <param name='display_count' value='yes' />
+          <param name='language' value='en-GB' />
+          <param name='filter' value='publish=yes' />
+        </object>
       </div>
-    </section>
-  </div>
+    </div>
+
 
   <!-- Footer -->
   <footer class="site-footer">

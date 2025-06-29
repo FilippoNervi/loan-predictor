@@ -22,26 +22,62 @@ with open("xgb_model_perm.pkl", "rb") as f:
     label_encoder = class_bundle['label_encoder']
     classifier_features = classifier.get_booster().feature_names
 
+# === Homepage ===
 @app.route('/')
 def home():
     return render_template('index.html')
 
+# === Dashboard Page ===
 @app.route('/Dashboard')
 def about():
     return render_template('Dashboard.html')
 
-@app.route('/Dataset')
-def dataset():
-    return render_template('Dataset.html')
-
+# === Model Page ===
 @app.route('/Model')
 def ml():
     return render_template('MLModel.html')
 
+# === Refinance Page: Table + Lookup ===
+@app.route('/Refinance', methods=['GET', 'POST'])
+def rf():
+    try:
+        top_100 = pd.read_csv("top_100_refinance_candidates.csv")
+        top_100_table = top_100.to_html(classes="table table-striped", index=False)
+
+        client_before = None
+        client_after = None
+        error = None
+
+        if request.method == 'POST':
+            member_id = request.form.get('member_id')
+            current_df = pd.read_csv('dfw_current_short.csv')
+            viable_df = pd.read_csv('dfw_viable_short.csv')
+
+            before = current_df[current_df['member_id'].astype(str) == str(member_id)]
+            after = viable_df[viable_df['member_id'].astype(str) == str(member_id)]
+
+            if before.empty:
+                error = "No client found with that Member ID."
+            else:
+                client_before = before.to_dict(orient='records')[0]
+                if not after.empty:
+                    client_after = after.to_dict(orient='records')[0]
+
+        return render_template(
+            "Refinance.html",
+            top_100_table=top_100_table,
+            client_before=client_before,
+            client_after=client_after,
+            error=error
+        )
+
+    except Exception as e:
+        return f"Could not load refinance page: {e}"
+
+# === Predict Interest Rate for New Clients ===
 @app.route('/predict_interest', methods=['POST'])
 def predict_interest():
     try:
-        # === Step 1: Gather and clean form input ===
         data = {key: request.form[key] for key in request.form}
         df = pd.DataFrame([data])
 
@@ -53,7 +89,6 @@ def predict_interest():
         ]
         df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric)
 
-        # === Step 2: Predict interest rate and bounds ===
         df_encoded = pd.get_dummies(df)
         df_encoded = df_encoded.reindex(columns=expected_columns, fill_value=0)
 
@@ -61,7 +96,6 @@ def predict_interest():
         confidence_low = pred - mae
         confidence_high = pred + mae
 
-        # === Helper function: Predict class and probabilities ===
         def predict_class_and_probs(input_df):
             encoded = pd.get_dummies(input_df)
             encoded = encoded.reindex(columns=classifier_features, fill_value=0)
@@ -71,17 +105,14 @@ def predict_interest():
             label = max(probs, key=probs.get)
             return label, probs
 
-        # === Final Prediction
         df_final = df.copy()
         df_final['int_rate'] = pred
         predicted_label, class_probs = predict_class_and_probs(df_final)
 
-        # === Lower Bound
         df_low = df.copy()
         df_low['int_rate'] = confidence_low
         predicted_label_low, class_probs_low = predict_class_and_probs(df_low)
 
-        # === Upper Bound
         df_high = df.copy()
         df_high['int_rate'] = confidence_high
         predicted_label_high, class_probs_high = predict_class_and_probs(df_high)
@@ -103,6 +134,17 @@ def predict_interest():
     except Exception as e:
         return f"Error during prediction: {e}"
 
+# === Predict for Existing Clients ===
+@app.route('/predict_existing', methods=['POST'])
+def predict_existing():
+    try:
+        form_data = request.form.to_dict()
+        print("Received existing client data:", form_data)
+        return render_template('index.html', show_result_existing=True)
+    except Exception as e:
+        return f"Error during existing client prediction: {e}"
+
+# === Run App ===
 import os
 
 if __name__ == '__main__':

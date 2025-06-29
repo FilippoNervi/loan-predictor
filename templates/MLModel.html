@@ -3,25 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard – Smart Loan Risk Assessment</title>
+  <title>Model Explanation - Smart Risk Assessment</title>
 
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Bank_logo_black.png') }}" />
-  <link rel="stylesheet" href="/project/static/css/Dashboard.css" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/Dashboard.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Bank_logo_black.png') }}">
+  <link rel="stylesheet" href="/project/static/css/MLModel.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/MLModel.css') }}">
 </head>
 
 <body>
   <div class="page-content">
-
-    <!-- Navigation Bar -->
+     <!-- Navigation Bar -->
     <nav>
       <div class="nav-container">
+        <!-- Left: Logo & Title -->
         <div class="nav-left">
           <div class="logo-icon">
             <img src="{{ url_for('static', filename='img/Bank_logo_black.png') }}" alt="Logo" />
           </div>
           <h3>Loan Predictor</h3>
         </div>
+
+        <!-- Right: Navigation Links -->
         <div class="nav-right">
           <div class="hamburger" onclick="toggleMenu()">
             <div class="bar"></div>
@@ -29,125 +31,400 @@
             <div class="bar"></div>
           </div>
           <ul class="nav-links" id="nav-links">
-            <li><a href="{{ url_for('dataset') }}">Data Set</a></li>
+
             <li><a href="{{ url_for('ml') }}">ML Model</a></li>
             <li><a href="{{ url_for('about') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('rf') }}">Refinance</a></li>
             <li><a href="{{ url_for('home') }}">Predictor</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <!-- Dashboard Section -->
-    <section class="dashboard-section content-wrapper">
-      <h2 class="section-title">Loan Risk Dashboards</h2>
-      <p class="section-subtitle">Explore insights across different perspectives with our Tableau dashboards.</p>
-
-      <!-- Dashboard 1: Overview of Risk -->
-      <div class="tableau-container">
-        <div class='tableauPlaceholder' id='viz1750326996929' style='position: relative'>
-          <noscript>
-            <a href='#'><img alt='Overview of Risk' src='https://public.tableau.com/static/images/ZZ/ZZWRTP8QJ/1_rss.png' style='border: none' /></a>
-          </noscript>
-          <object class='tableauViz' style='display:none;'>
-            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-            <param name='embed_code_version' value='3' />
-            <param name='path' value='shared/ZZWRTP8QJ' />
-            <param name='toolbar' value='yes' />
-            <param name='static_image' value='https://public.tableau.com/static/images/ZZ/ZZWRTP8QJ/1.png' />
-            <param name='animate_transition' value='yes' />
-            <param name='display_static_image' value='yes' />
-            <param name='display_spinner' value='yes' />
-            <param name='display_overlay' value='yes' />
-            <param name='display_count' value='yes' />
-            <param name='language' value='en-GB' />
-            <param name='filter' value='publish=yes' />
-          </object>
-        </div>
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">Model Documentation</h1>
+        <p class="hero-subtitle">
+          Comprehensive guide to our AI-powered lending models and their applications in smart risk assessment.
+        </p>
       </div>
+    </div>
 
-      <!-- Dashboard 2: Geographical Risk -->
-      <div class="tableau-container" style="margin-top: 40px;">
-        <div class='tableauPlaceholder' id='viz1750418316359' style='position: relative'>
-          <noscript>
-            <a href='#'><img alt='Geographical Risk' src='https://public.tableau.com/static/images/C2/C27Q9Y4TF/1_rss.png' style='border: none' /></a>
-          </noscript>
-          <object class='tableauViz' style='display:none;'>
-            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-            <param name='embed_code_version' value='3' />
-            <param name='path' value='shared/C27Q9Y4TF' />
-            <param name='toolbar' value='yes' />
-            <param name='static_image' value='https://public.tableau.com/static/images/C2/C27Q9Y4TF/1.png' />
-            <param name='animate_transition' value='yes' />
-            <param name='display_static_image' value='yes' />
-            <param name='display_spinner' value='yes' />
-            <param name='display_overlay' value='yes' />
-            <param name='display_count' value='yes' />
-            <param name='language' value='en-GB' />
-            <param name='filter' value='publish=yes' />
-          </object>
-        </div>
-      </div>
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="content-wrapper">
+        
+        <!-- Model Overview Section -->
+        <section class="model-section">
+          <h2 class="section-title">Interest Rate Prediction Model</h2>
+          <div class="model-card">
+            <div class="model-overview">
+              <h3>Overview</h3>
+              <p>The Interest Rate Predictor is a regression model designed to recommend an optimal interest rate for new loan applicants. It has been trained on successful loan cases, where the loan was fully repaid, ensuring that predictions are grounded in low-risk lending behavior. Furthermore, a separate XGBoost model predicts whether the loan will be Fully Paid, Late, or a Lost loan (default) if it is extended at the recommended interest rate.</p>
+              
+              <div class="features-grid">
+                <div class="feature-item">
+                  <h4>Proposed Interest Rate</h4>
+                  <p>Data-driven rate recommendation based on borrower profile</p>
+                </div>
+                <div class="feature-item">
+                  <h4>95% Confidence Interval</h4>
+                  <p>Flexible range for negotiations with upper and lower bounds</p>
+                </div>
+                <div class="feature-item">
+                  <h4>Risk Probabilities</h4>
+                  <p>Classification into Fully Paid, Late, or Lost loan categories</p>
+                </div>
+              </div>
 
-      <!-- Dashboard 3: Loan Specific Risk -->
-      <div class="tableau-container" style="margin-top: 40px;">
-        <div class='tableauPlaceholder' id='viz1750418053866' style='position: relative'>
-          <noscript>
-            <a href='#'><img alt='Loan Specific Risk' src='https://public.tableau.com/static/images/Lo/Loan_Specific_Risk_c1/LoanSpecificRisk/1_rss.png' style='border: none' /></a>
-          </noscript>
-          <object class='tableauViz' style='display:none;'>
-            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-            <param name='embed_code_version' value='3' />
-            <param name='site_root' value='' />
-            <param name='name' value='Loan_Specific_Risk_c1/LoanSpecificRisk' />
-            <param name='tabs' value='no' />
-            <param name='toolbar' value='yes' />
-            <param name='static_image' value='https://public.tableau.com/static/images/Lo/Loan_Specific_Risk_c1/LoanSpecificRisk/1.png' />
-            <param name='animate_transition' value='yes' />
-            <param name='display_static_image' value='yes' />
-            <param name='display_spinner' value='yes' />
-            <param name='display_overlay' value='yes' />
-            <param name='display_count' value='yes' />
-            <param name='language' value='en-GB' />
-          </object>
-        </div>
+              <h4>When to Use</h4>
+              <ul class="usage-list">
+                <li>Support consistent, data-driven interest rate offers</li>
+                <li>Identify a fair rate based on borrower characteristics</li>
+                <li>Guide discussions when negotiating loan terms with clients</li>
+              </ul>
+            </div>
+
+            <div class="example-output">
+              <h4>Example Output</h4>
+              <div class="output-display">
+                <div class="row-three-predictions">
+                  
+                  <!-- Lower Bound -->
+                  <div class="prediction-box">
+                    <h5>Lower Bound</h5>
+                    <div class="rate-display small">19.20%</div>
+                    <div class="probabilities">
+                      <span class="prob fully-paid">Fully Paid: 38.37%</span>
+                      <span class="prob late">Late: 16.44%</span>
+                      <span class="prob lost">Lost loan: 45.19%</span>
+                    </div>
+                  </div>
+            
+                  <!-- Final Prediction -->
+                  <div class="prediction-box main-prediction">
+                    <h5>Final Prediction</h5>
+                    <div class="rate-display">19.82%</div>
+                    <div class="probabilities">
+                      <span class="prob fully-paid">Fully Paid: 40.33%</span>
+                      <span class="prob late">Late: 12.38%</span>
+                      <span class="prob lost">Lost loan: 47.29%</span>
+                    </div>
+                    <div class="outcome">Predicted Outcome: Lost loan</div>
+                  </div>
+            
+                  <!-- Upper Bound -->
+                  <div class="prediction-box">
+                    <h5>Upper Bound</h5>
+                    <div class="rate-display small">20.44%</div>
+                    <div class="probabilities">
+                      <span class="prob fully-paid">Fully Paid: 41.04%</span>
+                      <span class="prob late">Late: 10.83%</span>
+                      <span class="prob lost">Lost loan: 48.12%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          <!-- Model Performance -->
+          <div class="performance-section">
+            <h3>Model Performance Metrics</h3>
+            <div class="metrics-grid">
+              <div class="metric-card">
+                <div class="metric-value">0.62</div>
+                <div class="metric-label">MAE (Mean Absolute Error)</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-value">4.73%</div>
+                <div class="metric-label">MAPE (Mean Absolute Percentage Error)</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-value">0.96</div>
+                <div class="metric-label">R² (R-squared)</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-value">0.8</div>
+                <div class="metric-label">RMSE (Root Mean Squared Error)</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Classification Model Section -->
+        <section class="model-section">
+          <h2 class="section-title">New Applicant Classification Model</h2>
+          <div class="model-card">
+            <div class="model-overview">
+              <h3>Overview</h3>
+              <p>This XGBoost-based classification model works in sequence with the Interest Rate Predictor to assess the risk classification of new loan applicants at the proposed interest rate. Trained on all completed loans, both successful and defaulted.</p>
+              
+              <h4>Risk Categories</h4>
+              <div class="risk-categories">
+                <div class="risk-category fully-paid">
+                  <h5>Fully Paid</h5>
+                  <p>Client expected to meet all installments on time</p>
+                </div>
+                <div class="risk-category late">
+                  <h5>Late</h5>
+                  <p>Client likely to have delinquencies (30+ days past due)</p>
+                </div>
+                <div class="risk-category lost">
+                  <h5>Lost Loan</h5>
+                  <p>Client expected to default on the loan</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="model-performance">
+              <h4>Classification Performance</h4>
+              <div class="performance-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Class</th>
+                      <th>Precision</th>
+                      <th>Recall</th>
+                      <th>F1-Score</th>
+                      <th>Support</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="fully-paid-text">Fully Paid</td>
+                      <td>0.82</td>
+                      <td>0.84</td>
+                      <td>0.83</td>
+                      <td>42,008</td>
+                    </tr>
+                    <tr>
+                      <td class="late-text">Late</td>
+                      <td>0.33</td>
+                      <td>0.27</td>
+                      <td>0.29</td>
+                      <td>4,090</td>
+                    </tr>
+                    <tr>
+                      <td class="lost-text">Lost Loan</td>
+                      <td>0.33</td>
+                      <td>0.34</td>
+                      <td>0.33</td>
+                      <td>9,330</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="overall-accuracy">
+                  <strong>Overall Accuracy: 71%</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Current Clients Model Section -->
+        <section class="model-section">
+          <h2 class="section-title">Current Client Classification Model</h2>
+          <div class="model-card">
+            <div class="model-overview">
+              <h3>Overview</h3>
+              <p>An XGBoost-based classifier trained on all completed loan cases to predict repayment outcomes for active clients based on their current loan and financial profile. Optimized with a learning rate of 0.3 for stability and predictive performance.</p>
+              
+              <h4>Key Applications</h4>
+              <ul class="usage-list">
+                <li>Monitor risk levels in the current loan portfolio</li>
+                <li>Proactively flag loans with high probability of delay or default</li>
+                <li>Inform refinancing or early intervention strategies</li>
+              </ul>
+
+              <div class="example-prediction">
+                <h4>Example Prediction Output</h4>
+                <div class="current-client-example">
+                  <div class="prob-display">
+                    <span class="prob fully-paid large">Fully Paid: 96.8%</span>
+                    <span class="prob late large">Late: 2.4%</span>
+                    <span class="prob lost large">Lost loan: 0.8%</span>
+                  </div>
+                  <div class="predicted-outcome">Predicted Outcome: Fully Paid</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="model-performance">
+              <h4>Performance Metrics</h4>
+              <div class="performance-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Class</th>
+                      <th>Precision</th>
+                      <th>Recall</th>
+                      <th>F1-Score</th>
+                      <th>Support</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="fully-paid-text">Fully Paid</td>
+                      <td>0.91</td>
+                      <td>0.58</td>
+                      <td>0.71</td>
+                      <td>42,008</td>
+                    </tr>
+                    <tr>
+                      <td class="late-text">Late</td>
+                      <td>0.28</td>
+                      <td>0.85</td>
+                      <td>0.42</td>
+                      <td>4,090</td>
+                    </tr>
+                    <tr>
+                      <td class="lost-text">Lost Loan</td>
+                      <td>0.36</td>
+                      <td>0.63</td>
+                      <td>0.46</td>
+                      <td>9,330</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="overall-accuracy">
+                  <strong>Overall Accuracy: 61%</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Refinancing Model Section -->
+        <section class="model-section">
+          <h2 class="section-title">Refinancing Model</h2>
+          <div class="model-card">
+            <div class="model-overview">
+              <h3>Overview</h3>
+              <p>Developed using XGBoost algorithm, this model predicts default probability for current loan clients and evaluates whether offering personalized refinancing plans would be profitable for the bank.</p>
+              
+              <h4>Model Outputs</h4>
+              <div class="refinancing-outputs">
+                <div class="output-item">
+                  <strong>p_default:</strong> Probability of default under current terms
+                </div>
+                <div class="output-item">
+                  <strong>p_default_refin:</strong> Estimated default probability after refinancing
+                </div>
+                <div class="output-item">
+                  <strong>Expected net gain:</strong> Projected financial benefit after costs
+                </div>
+                <div class="output-item">
+                  <strong>Strategy:</strong> "Refinance" or "Do Nothing" recommendation
+                </div>
+              </div>
+
+              <div class="risk-example">
+                <h4>Example Risk Profile</h4>
+                <div class="risk-profile-display">
+                  <div class="risk-header">Client Risk Profile</div>
+                  <div class="risk-details">
+                    <span>Member ID: 49932581</span>
+                    <span>Loan Amount: $10,450</span>
+                    <span>Interest Rate: 25.89%</span>
+                    <span>Risk Probability: 94.18%</span>
+                  </div>
+                  <div class="risk-assessment very-high">
+                    VERY HIGH RISK: Likely default, consider immediate action
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="model-performance">
+              <h4>Model Performance (Optimal Threshold: 0.48)</h4>
+              <div class="refinancing-metrics">
+                <div class="metric-row">
+                  <span class="metric-label">Accuracy:</span>
+                  <span class="metric-value">64%</span>
+                </div>
+                <div class="metric-row">
+                  <span class="metric-label">Precision:</span>
+                  <span class="metric-value">38%</span>
+                </div>
+                <div class="metric-row">
+                  <span class="metric-label">Recall:</span>
+                  <span class="metric-value">69%</span>
+                </div>
+                <div class="metric-row">
+                  <span class="metric-label">F1 Score:</span>
+                  <span class="metric-value">49%</span>
+                </div>
+                <div class="metric-row">
+                  <span class="metric-label">AUC:</span>
+                  <span class="metric-value">71%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Most Influential Variables Section -->
+        <section class="model-section">
+          <h2 class="section-title">Key Influential Variables</h2>
+          <div class="variables-grid">
+            <div class="variable-card">
+              <h3>Interest Rate Prediction</h3>
+              <div class="variable-list">
+                <div class="variable-item high-impact">Grade Score</div>
+                <div class="variable-item high-impact">Total Collection Amount</div>
+                <div class="variable-item high-impact">Revolving Utilization</div>
+                <div class="variable-item high-impact">Loan Purpose</div>
+              </div>
+            </div>
+            
+            <div class="variable-card">
+              <h3>New Applicant Classification</h3>
+              <div class="variable-list">
+                <div class="variable-item high-impact">Interest Rate</div>
+                <div class="variable-item high-impact">Grade Score</div>
+                <div class="variable-item medium-impact">Income</div>
+                <div class="variable-item medium-impact">Loan Amount</div>
+                <div class="variable-item medium-impact">Revolving Balance</div>
+              </div>
+            </div>
+            
+            <div class="variable-card">
+              <h3>Current Client Analysis</h3>
+              <div class="variable-list">
+                <div class="variable-item high-impact">Grade Score</div>
+                <div class="variable-item high-impact">Interest Rate</div>
+                <div class="variable-item high-impact">Credit Length</div>
+                <div class="variable-item medium-impact">Total Recovery Late Fees</div>
+                <div class="variable-item medium-impact">Income</div>
+              </div>
+            </div>
+            
+            <div class="variable-card">
+              <h3>Refinancing Model</h3>
+              <div class="variable-list">
+                <div class="variable-item high-impact">Interest Rate</div>
+                <div class="variable-item high-impact">Annual Income</div>
+                <div class="variable-item high-impact">Debt-to-Income Ratio</div>
+                <div class="variable-item medium-impact">Loan Term</div>
+                <div class="variable-item medium-impact">Home Ownership</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </div>
-    </section>
+    </div>
   </div>
-
-  <!-- Footer -->
+ 
   <footer class="site-footer">
     <div class="footer-container">
-      <p>&copy; 2000–2025 Loan Predictor, Inc. All rights reserved.</p>
+      <p>The entirety of this site is protected by copyright © 2000–2025 Loan Predictor, Inc.</p>
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <script src="/project/static/js/script.js"></script>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
-  <!-- Dashboard Scripts -->
-  <script>
-    function embedTableau(id, fallbackHeight) {
-      const div = document.getElementById(id);
-      const viz = div.getElementsByTagName('object')[0];
-      if (div.offsetWidth > 800) {
-        viz.style.width = '100%';
-        viz.style.height = (div.offsetWidth * 0.75) + 'px';
-      } else if (div.offsetWidth > 500) {
-        viz.style.width = '100%';
-        viz.style.height = (div.offsetWidth * 0.75) + 'px';
-      } else {
-        viz.style.width = '100%';
-        viz.style.height = fallbackHeight;
-      }
-      const script = document.createElement('script');
-      script.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-      viz.parentNode.insertBefore(script, viz);
-    }
-
-    embedTableau('viz1750326996929', '1327px');  // Overview of Risk
-    embedTableau('viz1750418316359', '727px');   // Geographical Risk
-    embedTableau('viz1750418053866', '727px');   // Loan Specific Risk
-  </script>
 </body>
 </html>
