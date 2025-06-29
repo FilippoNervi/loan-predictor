@@ -33,7 +33,7 @@
             <div class="bar"></div>
           </div>
           <ul class="nav-links" id="nav-links">
-            <li><a href="{{ url_for('dataset') }}">Data Set</a></li>
+
             <li><a href="{{ url_for('ml') }}">ML Model</a></li>
             <li><a href="{{ url_for('about') }}">Dashboard</a></li>
             <li><a href="{{ url_for('home') }}">Predictor</a></li>
@@ -333,88 +333,117 @@
                 </form>
                 
 
+                
                 {% if prediction %}
                 <div class="outcome-box">
                   <h3>Risk Assessment Results</h3>
-                
+                  
                   <div class="risk-layout">
-                
-                    <!-- Final Prediction -->
+                    
+                    <!-- Main Prediction -->
                     <div class="risk-box highlight">
+                      <div class="confidence-badge">95% Confidence</div>
+                      <div class="prediction-icon">%</div>
                       <h4>Final Prediction</h4>
-                
+                      
                       <div class="risk-section">
-                        <p class="rate-value">{{ prediction }}%</p>
-                        <p class="section-label">Interest Rate</p>
+                        <div class="section-label">Interest Rate</div>
+                        <div class="rate-value">{{ prediction }}%</div>
+                        <div class="risk-meter">
+                          <div class="risk-meter-fill" style="width: {{ (prediction|float / 25 * 100)|round }}%;"></div>
+                        </div>
                       </div>
-                
+                      
                       <div class="risk-section">
-                        <p class="section-label">Class Probabilities:</p>
+                        <div class="section-label">Class Probabilities</div>
                         {% for label, prob in class_probs.items() %}
-                          <p class="prob-line {{ label | lower | replace(' ', '-') }}">
-                            {{ label }}: {{ "%.2f"|format(prob * 100) }}%
-                          </p>
+                          <div class="prob-line {{ label | lower | replace(' ', '-') }}">
+                            <span>{{ label }}</span>
+                            <span>{{ "%.2f"|format(prob * 100) }}%</span>
+                          </div>
                         {% endfor %}
                       </div>
-                
+                      
                       <div class="risk-section">
-                        <p class="section-label">Predicted Outcome:</p>
-                        <p class="outcome">{{ predicted_label }}</p>
+                        <div class="section-label">Predicted Outcome</div>
+                        <div class="outcome">{{ predicted_label }}</div>
                       </div>
                     </div>
-                
-                    <!-- Lower and Upper Bound -->
+                    
+                    <!-- Lower and Upper Bounds -->
                     <div class="risk-subrow">
                       <div class="risk-box">
+                        <div class="prediction-icon lower-bound">⬇</div>
                         <h4>Lower Bound</h4>
-                
+                        
                         <div class="risk-section">
-                          <p class="rate-value">{{ conf_low }}%</p>
-                          <p class="section-label">Interest Rate</p>
+                          <div class="section-label">Interest Rate</div>
+                          <div class="rate-value lower-rate">{{ conf_low }}%</div>
                         </div>
-                
+                        
                         <div class="risk-section">
-                          <p class="section-label">Class Probabilities:</p>
+                          <div class="section-label">Class Probabilities</div>
                           {% for label, prob in class_probs_low.items() %}
-                            <p class="prob-line {{ label | lower | replace(' ', '-') }}">
-                              {{ label }}: {{ "%.2f"|format(prob * 100) }}%
-                            </p>
+                            <div class="prob-line {{ label | lower | replace(' ', '-') }}">
+                              <span>{{ label }}</span>
+                              <span>{{ "%.2f"|format(prob * 100) }}%</span>
+                            </div>
                           {% endfor %}
                         </div>
-                
+                        
                         <div class="risk-section">
-                          <p class="section-label">Predicted Outcome:</p>
-                          <p class="outcome">{{ predicted_label_low }}</p>
+                          <div class="section-label">Predicted Outcome</div>
+                          <div class="outcome lower-outcome">{{ predicted_label_low }}</div>
                         </div>
                       </div>
-                
+                      
                       <div class="risk-box">
+                        <div class="prediction-icon upper-bound">⬆</div>
                         <h4>Upper Bound</h4>
-                
+                        
                         <div class="risk-section">
-                          <p class="rate-value">{{ conf_high }}%</p>
-                          <p class="section-label">Interest Rate</p>
+                          <div class="section-label">Interest Rate</div>
+                          <div class="rate-value upper-rate">{{ conf_high }}%</div>
                         </div>
-                
+                        
                         <div class="risk-section">
-                          <p class="section-label">Class Probabilities:</p>
+                          <div class="section-label">Class Probabilities</div>
                           {% for label, prob in class_probs_high.items() %}
-                            <p class="prob-line {{ label | lower | replace(' ', '-') }}">
-                              {{ label }}: {{ "%.2f"|format(prob * 100) }}%
-                            </p>
+                            <div class="prob-line {{ label | lower | replace(' ', '-') }}">
+                              <span>{{ label }}</span>
+                              <span>{{ "%.2f"|format(prob * 100) }}%</span>
+                            </div>
                           {% endfor %}
                         </div>
-                
+                        
                         <div class="risk-section">
-                          <p class="section-label">Predicted Outcome:</p>
-                          <p class="outcome">{{ predicted_label_high }}</p>
+                          <div class="section-label">Predicted Outcome</div>
+                          <div class="outcome upper-outcome">{{ predicted_label_high }}</div>
                         </div>
                       </div>
                     </div>
+                    
                   </div>
                 </div>
+
+                <script>
+                // Add animation on load for risk assessment results
+                document.addEventListener('DOMContentLoaded', function() {
+                  const boxes = document.querySelectorAll('.risk-box');
+                  boxes.forEach((box, index) => {
+                    box.style.opacity = '0';
+                    box.style.transform = 'translateY(20px)';
+                    box.style.transition = 'all 0.6s ease';
+                    
+                    setTimeout(() => {
+                      box.style.opacity = '1';
+                      box.style.transform = 'translateY(0)';
+                    }, (index + 1) * 200);
+                  });
+                });
+                </script>
                 {% endif %}
-                
+                                
                 
                 
 
@@ -424,7 +453,7 @@
                   <div class="form-grid">
                     <div class="form-group"><label>New Loan Amount Requested ($)</label><input type="number" name="loan_solicited" required></div>
                     <div class="form-group"><label>Requested Loan Period (months)</label><input type="number" name="loan_period_existing" required></div>
-                    <div class="form-group"><label>Previous Loan Amount ($)</label><input type="number" name="loan_given" required></div>
+                    <div class="form-group"><labael>Previous Loan Amount ($)</label><input type="number" name="loan_given" required></div>
                     <div class="form-group"><label>Amount Paid So Far ($)</label><input type="number" name="amount_paid" required></div>
                     <div class="form-group"><label>Previous Loan Length (months)</label><input type="number" name="length" required></div>
                     <div class="form-group"><label>Remaining Period (months)</label><input type="number" name="remaining_period" required></div>
