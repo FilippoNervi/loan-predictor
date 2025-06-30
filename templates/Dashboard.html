@@ -46,23 +46,21 @@
 
     <!-- Dashboard Section -->
     <section class="dashboard-section content-wrapper">
-      <h2 class="section-title"></h2>
-      <p class="section-subtitle"></p>
 
-      <!-- Dashboard 1: Risk Overview -->
+      <!-- Dashboard 1 -->
       <div class="tableau-container">
-        <div class='tableauPlaceholder' id='viz1751269793851' style='position: relative'>
+        <div class='tableauPlaceholder' id='viz1751274343803' style='position: relative'>
           <noscript>
-            <a href='#'><img alt='Risk Overview ' src='https://public.tableau.com/static/images/Ri/Risk_Overview_Final1/RiskOverview/1_rss.png' style='border: none' /></a>
+            <a href='#'><img alt='Risk Overview' src='https://public.tableau.com/static/images/Ri/Risk_Segmentation_Over_Time_Final/RiskOverview/1_rss.png' style='border: none' /></a>
           </noscript>
           <object class='tableauViz' style='display:none;'>
             <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
             <param name='embed_code_version' value='3' />
             <param name='site_root' value='' />
-            <param name='name' value='Risk_Overview_Final1/RiskOverview' />
+            <param name='name' value='Risk_Segmentation_Over_Time_Final/RiskOverview' />
             <param name='tabs' value='no' />
             <param name='toolbar' value='yes' />
-            <param name='static_image' value='https://public.tableau.com/static/images/Ri/Risk_Overview_Final1/RiskOverview/1.png' />
+            <param name='static_image' value='https://public.tableau.com/static/images/Ri/Risk_Segmentation_Over_Time_Final/RiskOverview/1.png' />
             <param name='animate_transition' value='yes' />
             <param name='display_static_image' value='yes' />
             <param name='display_spinner' value='yes' />
@@ -74,20 +72,20 @@
         </div>
       </div>
 
-      <!-- Dashboard 2: Geographic Risk -->
+      <!-- Dashboard 2 -->
       <div class="tableau-container" style="margin-top: 40px;">
-        <div class='tableauPlaceholder' id='viz1751269885519' style='position: relative'>
+        <div class='tableauPlaceholder' id='viz1751274460485' style='position: relative'>
           <noscript>
-            <a href='#'><img alt='Geograhic Risk Distribution ' src='https://public.tableau.com/static/images/Ge/Geographic_Risk_Distribution_Final1/GeograhicRiskDistribution/1_rss.png' style='border: none' /></a>
+            <a href='#'><img alt='Dashboard 2' src='https://public.tableau.com/static/images/Ri/Risk_Segmentation_Over_Time_Final/Dashboard2/1_rss.png' style='border: none' /></a>
           </noscript>
           <object class='tableauViz' style='display:none;'>
             <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
             <param name='embed_code_version' value='3' />
             <param name='site_root' value='' />
-            <param name='name' value='Geographic_Risk_Distribution_Final1/GeograhicRiskDistribution' />
+            <param name='name' value='Risk_Segmentation_Over_Time_Final/Dashboard2' />
             <param name='tabs' value='no' />
             <param name='toolbar' value='yes' />
-            <param name='static_image' value='https://public.tableau.com/static/images/Ge/Geographic_Risk_Distribution_Final1/GeograhicRiskDistribution/1.png' />
+            <param name='static_image' value='https://public.tableau.com/static/images/Ri/Risk_Segmentation_Over_Time_Final/Dashboard2/1.png' />
             <param name='animate_transition' value='yes' />
             <param name='display_static_image' value='yes' />
             <param name='display_spinner' value='yes' />
@@ -99,18 +97,20 @@
         </div>
       </div>
 
-      <!-- Dashboard 3: Loan Specific Risk -->
+      <!-- Dashboard 3 -->
       <div class="tableau-container" style="margin-top: 40px;">
-        <div class='tableauPlaceholder' id='viz1751269904791' style='position: relative'>
+        <div class='tableauPlaceholder' id='viz1751274541559' style='position: relative'>
           <noscript>
-            <a href='#'><img alt='Loan Specific Risk ' src='https://public.tableau.com/static/images/2G/2GFPFR9ZR/1_rss.png' style='border: none' /></a>
+            <a href='#'><img alt='Loan Specific Risk' src='https://public.tableau.com/static/images/Ri/Risk_Segmentation_Over_Time_Final/LoanSpecificRisk/1_rss.png' style='border: none' /></a>
           </noscript>
           <object class='tableauViz' style='display:none;'>
             <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
             <param name='embed_code_version' value='3' />
-            <param name='path' value='shared/2GFPFR9ZR' />
+            <param name='site_root' value='' />
+            <param name='name' value='Risk_Segmentation_Over_Time_Final/LoanSpecificRisk' />
+            <param name='tabs' value='no' />
             <param name='toolbar' value='yes' />
-            <param name='static_image' value='https://public.tableau.com/static/images/2G/2GFPFR9ZR/1.png' />
+            <param name='static_image' value='https://public.tableau.com/static/images/Ri/Risk_Segmentation_Over_Time_Final/LoanSpecificRisk/1.png' />
             <param name='animate_transition' value='yes' />
             <param name='display_static_image' value='yes' />
             <param name='display_spinner' value='yes' />
@@ -121,6 +121,7 @@
           </object>
         </div>
       </div>
+
     </section>
 
     <!-- Footer -->
@@ -130,8 +131,7 @@
       </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <!-- Embed Script -->
     <script type='text/javascript'>
       function embedTableau(id, height) {
         var divElement = document.getElementById(id);
@@ -151,9 +151,9 @@
         vizElement.parentNode.insertBefore(scriptElement, vizElement);
       }
 
-      embedTableau('viz1751269793851', '1227px');
-      embedTableau('viz1751269885519', '727px');
-      embedTableau('viz1751269904791', '727px');
+      embedTableau('viz1751274343803', '1227px');
+      embedTableau('viz1751274460485', '727px');
+      embedTableau('viz1751274541559', '727px');
     </script>
   </div>
 </body>
