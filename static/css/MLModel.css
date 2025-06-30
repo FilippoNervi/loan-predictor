@@ -45,12 +45,12 @@ nav {
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 12px;
 }
 
 .logo-icon {
-  width: 75px;
-  height: 75px;
+  width: 45px;
+  height: 45px;
   border-radius: 12px;
   overflow: hidden;
   display: flex;

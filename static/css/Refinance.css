@@ -88,10 +88,18 @@
     border: 2px solid rgba(220, 38, 38, 0.1);
     margin-bottom: 30px;
   
-    /* New additions */
+    /* Fixed scroll behavior */
     overflow-x: auto;
-    display: flex;
-    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+  
+    /* Remove flex layout that interferes with table scrolling */
+    display: block;
+  }
+  
+  .table-container table {
+    width: 100%;
+    table-layout: auto;
   }
   
   .table {
