@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 import pickle
 import pandas as pd
-import os
 
 app = Flask(__name__)
 
@@ -133,16 +132,6 @@ def predict_interest():
 
     except Exception as e:
         return f"Error during prediction: {e}"
-
-# === Predict for Existing Clients ===
-@app.route('/predict_existing', methods=['POST'])
-def predict_existing():
-    try:
-        form_data = request.form.to_dict()
-        print("Received existing client data:", form_data)
-        return render_template('index.html', show_result_existing=True)
-    except Exception as e:
-        return f"Error during existing client prediction: {e}"
 
 # === Run App ===
 import os

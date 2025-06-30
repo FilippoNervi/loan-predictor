@@ -48,13 +48,13 @@ nav {
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 3px;
 }
 
 
 .logo-icon {
-  width: 45px;
-  height: 45px;
+  width: 75px;
+  height: 75px;
   border-radius: 12px;
   overflow: hidden;
   display: flex;
@@ -229,6 +229,7 @@ nav {
 /* Form Styling */
 .form-container {
   display: flex;
+  width: 100%;
   justify-content: center;
   margin-top: 0; /* No top margin by default */
   margin-bottom: 0;
@@ -251,14 +252,17 @@ nav {
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 20px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
 }
 
 .form-group1 {

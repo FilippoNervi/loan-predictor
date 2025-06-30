@@ -4,31 +4,7 @@ function toggleMenu() {
   navLinks.classList.toggle('show');
 }
 
-function showForm(clientType) {
-  const formNew = document.getElementById('form-new');
-  const formExisting = document.getElementById('form-existing');
-  const buttons = document.querySelectorAll('.client-btn');
-  const formContainer = document.querySelector('.form-container');
 
-  // Hide both sections first
-  formNew.classList.add('hidden');
-  formExisting.classList.add('hidden');
-
-  // Remove active state from all buttons
-  buttons.forEach(btn => btn.classList.remove('active'));
-
-  // Show the selected section and activate the correct button
-  if (clientType === 'new') {
-    formNew.classList.remove('hidden');
-    document.querySelector('.client-btn[onclick*="new"]').classList.add('active');
-  } else if (clientType === 'existing') {
-    formExisting.classList.remove('hidden');
-    document.querySelector('.client-btn[onclick*="existing"]').classList.add('active');
-  }
-
-  // Set margin if either section is shown
-  formContainer.style.marginTop = '40px';
-}
 
 // === Smooth scroll for anchor links ===
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

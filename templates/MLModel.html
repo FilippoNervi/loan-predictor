@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Model Explanation - Smart Risk Assessment</title>
 
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Bank_logo_black.png') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/New_Bank_logo_black.png') }}">
   <link rel="stylesheet" href="/project/static/css/MLModel.css" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/MLModel.css') }}">
 </head>
@@ -18,9 +18,9 @@
         <!-- Left: Logo & Title -->
         <div class="nav-left">
           <div class="logo-icon">
-            <img src="{{ url_for('static', filename='img/Bank_logo_black.png') }}" alt="Logo" />
+            <img src="{{ url_for('static', filename='img/New_Bank_logo_black.png') }}" alt="Logo" />
           </div>
-          <h3>Loan Predictor</h3>
+          <h3>Liberty West Bank</h3>
         </div>
 
         <!-- Right: Navigation Links -->
@@ -31,11 +31,10 @@
             <div class="bar"></div>
           </div>
           <ul class="nav-links" id="nav-links">
-
             <li><a href="{{ url_for('ml') }}">ML Model</a></li>
             <li><a href="{{ url_for('about') }}">Dashboard</a></li>
-            <li><a href="{{ url_for('rf') }}">Refinance</a></li>
-            <li><a href="{{ url_for('home') }}">Predictor</a></li>
+            <li><a href="{{ url_for('rf') }}" class="active">Existing Clients</a></li>
+            <li><a href="{{ url_for('home') }}">New Clients</a></li>
           </ul>
         </div>
       </div>

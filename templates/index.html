@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smart Risk Assessment</title>
 
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/Bank_logo_black.png') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/New_Bank_logo_black.png') }}">
   <link rel="stylesheet" href="/project/static/css/style.css" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
@@ -20,9 +20,9 @@
         <!-- Left: Logo & Title -->
         <div class="nav-left">
           <div class="logo-icon">
-            <img src="{{ url_for('static', filename='img/Bank_logo_black.png') }}" alt="Logo" />
+            <img src="{{ url_for('static', filename='img/New_Bank_logo_black.png') }}" alt="Logo" />
           </div>
-          <h3>Loan Predictor</h3>
+          <h3>Liberty West Bank</h3>
         </div>
 
         <!-- Right: Navigation Links -->
@@ -35,8 +35,8 @@
           <ul class="nav-links" id="nav-links">
             <li><a href="{{ url_for('ml') }}">ML Model</a></li>
             <li><a href="{{ url_for('about') }}">Dashboard</a></li>
-            <li><a href="{{ url_for('rf') }}">Refinance</a></li>
-            <li><a href="{{ url_for('home') }}">Predictor</a></li>
+            <li><a href="{{ url_for('rf') }}" class="active">Existing Clients</a></li>
+            <li><a href="{{ url_for('home') }}">New Clients</a></li>
           </ul>
         </div>
       </div>
@@ -62,14 +62,12 @@
             <p class="section-subtitle">
               Select the client type to begin the risk evaluation process.
             </p>
-            <div class="client-type-buttons">
-              <button class="client-btn" onclick="showForm('new')"><span>New Client</span></button>
-              <button class="client-btn" onclick="showForm('existing')"><span>Existing Client</span></button>
-            </div>
+
 
             <div class="form-container">
               <!-- NEW CLIENT FORM -->
-              <div id="form-new" class="loan-form {% if show_result %}{% else %}hidden{% endif %}">
+              <div class="form-container" style="margin-top: 40px;">
+                <div id="form-new" class="loan-form">              
                 <form action="/predict_interest#form-new" method="post">
 
                   <!-- Demo Buttons -->
@@ -444,28 +442,6 @@
                 </script>
                 {% endif %}
                                 
-                
-                
-
-              <!-- EXISTING CLIENT FORM -->
-              <div id="form-existing" class="loan-form hidden">
-                <form action="/predict_existing" method="post">
-                  <div class="form-grid">
-                    <div class="form-group"><label>New Loan Amount Requested ($)</label><input type="number" name="loan_solicited" required></div>
-                    <div class="form-group"><label>Requested Loan Period (months)</label><input type="number" name="loan_period_existing" required></div>
-                    <div class="form-group"><label>Previous Loan Amount ($)</label><input type="number" name="loan_given" required></div>
-                    <div class="form-group"><label>Amount Paid So Far ($)</label><input type="number" name="amount_paid" required></div>
-                    <div class="form-group"><label>Previous Loan Length (months)</label><input type="number" name="length" required></div>
-                    <div class="form-group"><label>Remaining Period (months)</label><input type="number" name="remaining_period" required></div>
-                    <div class="form-group"><label>Loan Purpose</label><input type="text" name="purpose_existing" required></div>
-                    <div class="form-group"><label>Employment Status</label><input type="text" name="employment_existing" required></div>
-                    <div class="form-group"><label>City</label><input type="text" name="city_existing" required></div>
-                  </div>
-                  <div style="text-align: center;">
-                    <button class="predict-btn" type="submit">Analyze Risk</button>
-                  </div>
-                </form>
-              </div>
             </div>
           </div>
         </div>
