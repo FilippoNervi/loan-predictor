@@ -199,5 +199,8 @@ def predict_interest():
         return f"Error during prediction: {e}"
 
 # === Run the Flask App ===
+import os
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Use Railway's port or fallback to 5000 locally
+    app.run(host='0.0.0.0', port=port)
