@@ -40,7 +40,8 @@ def ml():
 @app.route('/Refinance', methods=['GET', 'POST'])
 def rf():
     try:
-        top_100 = pd.read_csv("top_100_refinance_candidates.csv")
+        # Load top 100 refinance candidates table
+        top_100 = pd.read_csv("top_risky_clients_filtered.csv")
         top_100_table = top_100.to_html(classes="table table-striped", index=False)
 
         client_before = None
@@ -49,18 +50,80 @@ def rf():
 
         if request.method == 'POST':
             member_id = request.form.get('member_id')
-            current_df = pd.read_csv('dfw_current_short.csv')
-            viable_df = pd.read_csv('dfw_viable_short.csv')
 
-            before = current_df[current_df['member_id'].astype(str) == str(member_id)]
-            after = viable_df[viable_df['member_id'].astype(str) == str(member_id)]
+            try:
+                # Explicitly define column names for lookup CSV
+                columns = [
+                    'expected_income_actual', 'expected_income_refin', 'id', 'int_rate_new',
+                    'int_rate_original', 'net_improvement', 'p_default_new', 'p_default_original',
+                    'status', 'term_left', 'term_new'
+                ]
+                lookup_df = pd.read_csv('client_refinancing_lookup.csv', names=columns, header=None)
 
-            if before.empty:
-                error = "No client found with that Member ID."
-            else:
-                client_before = before.to_dict(orient='records')[0]
-                if not after.empty:
-                    client_after = after.to_dict(orient='records')[0]
+                print("Lookup DF columns:", lookup_df.columns.tolist())
+                print("Member ID being searched:", member_id)
+
+                # Find client row by ID
+                client_data = lookup_df[lookup_df['id'].astype(str) == str(member_id)]
+
+                if client_data.empty:
+                    error = "No client found with that Member ID."
+                else:
+                    client_row = client_data.iloc[0]
+
+                    print("Raw values from CSV:")
+                    for col in ['id', 'int_rate_original', 'term_left', 'p_default_original', 'expected_income_actual', 'status']:
+                        if col in client_row:
+                            print(f"  {col}: {client_row[col]} (type: {type(client_row[col])})")
+
+                    # === Robust numeric parser ===
+                    def safe_numeric(value, default=0):
+                        try:
+                            if pd.isna(value) or str(value).strip() in ['', 'nan', 'None']:
+                                return default
+
+                            str_value = str(value).strip()
+                            str_value = str_value.replace('€', '').replace('$', '').replace('\xa0', '').replace(' ', '')
+
+                            if ',' in str_value:
+                                if str_value.count(',') == 1 and str_value.count('.') == 1:
+                                    if str_value.find(',') > str_value.find('.'):
+                                        str_value = str_value.replace('.', '').replace(',', '.')
+                                elif str_value.count(',') == 1:
+                                    str_value = str_value.replace(',', '.')
+                                else:
+                                    str_value = str_value.replace(',', '')
+
+                            return float(str_value)
+                        except Exception as e:
+                            print(f"[safe_numeric] Could not parse '{value}' → {e}")
+                            return default
+
+                    # === Client BEFORE refinancing ===
+                    client_before = {
+                        'id': client_row['id'],
+                        'int_rate': safe_numeric(client_row.get('int_rate_original'), 0),
+                        'term_months': safe_numeric(client_row.get('term_left'), 0),
+                        'p_default': safe_numeric(client_row.get('p_default_original'), 0),
+                        'expected_income_actual': safe_numeric(client_row.get('expected_income_actual'), 0)
+                    }
+
+                    print("Processed client_before:", client_before)
+
+                    # === Client AFTER refinancing (if applicable) ===
+                    if pd.notna(client_row.get('status')) and client_row['status'] != 'No refinancing recommended':
+                        client_after = {
+                            'int_rate_refin': safe_numeric(client_row.get('int_rate_new'), 0),
+                            'term_months_refin': safe_numeric(client_row.get('term_new'), 0),
+                            'p_default_refin': safe_numeric(client_row.get('p_default_new'), 0),
+                            'expected_income_refin': safe_numeric(client_row.get('expected_income_refin'), 0),
+                            'net_improvement': safe_numeric(client_row.get('net_improvement'), 0)
+                        }
+                        print("Processed client_after:", client_after)
+
+            except Exception as data_error:
+                print(f"Data processing error: {data_error}")
+                error = f"Error processing data: {data_error}"
 
         return render_template(
             "Refinance.html",
@@ -71,7 +134,9 @@ def rf():
         )
 
     except Exception as e:
+        print(f"Full error: {e}")
         return f"Could not load refinance page: {e}"
+
 
 # === Predict Interest Rate for New Clients ===
 @app.route('/predict_interest', methods=['POST'])
@@ -133,9 +198,6 @@ def predict_interest():
     except Exception as e:
         return f"Error during prediction: {e}"
 
-# === Run App ===
-import os
-
+# === Run the Flask App ===
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))  # Use Railway's port or fallback to 5000 locally
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)

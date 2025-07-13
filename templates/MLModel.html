@@ -31,10 +31,10 @@
             <div class="bar"></div>
           </div>
           <ul class="nav-links" id="nav-links">
-            <li><a href="{{ url_for('ml') }}">ML Model</a></li>
+            <li><a href="{{ url_for('home') }}">New Clients</a></li>
             <li><a href="{{ url_for('about') }}">Dashboard</a></li>
             <li><a href="{{ url_for('rf') }}" class="active">Existing Clients</a></li>
-            <li><a href="{{ url_for('home') }}">New Clients</a></li>
+            <li><a href="{{ url_for('ml') }}">ML Model</a></li>
           </ul>
         </div>
       </div>
@@ -54,6 +54,40 @@
     <div class="main-content">
       <div class="content-wrapper">
         
+        <!-- Explanation of Key Concepts Section -->
+        <section class="model-section">
+          <h2 class="section-title">Explanation of Key Concepts</h2>
+          <div class="model-card">
+            <div class="concepts-overview">
+              <div class="concept-item">
+                <h4>Precision</h4>
+                <p>If your system says 100 people will repay their loans, but only 80 actually do, your precision is 80%. It tells you how trustworthy your "yes" decisions are. In short, out of those we approved, how many were truly good?</p>
+              </div>
+              
+              <div class="concept-item">
+                <h4>Recall</h4>
+                <p>If there are 100 people who would repay, but your system only identifies 70 of them, your recall is 70%. It tells you how many of the real good customers you managed to find. So, of all the good ones out there, how many did we catch?</p>
+              </div>
+
+              <h4>Risk Categories</h4>
+              <div class="risk-categories">
+                <div class="risk-category fully-paid">
+                  <h5>Fully Paid</h5>
+                  <p>Client expected to meet all installments on time</p>
+                </div>
+                <div class="risk-category late">
+                  <h5>Late</h5>
+                  <p>Client likely to have delinquencies (30+ days past due)</p>
+                </div>
+                <div class="risk-category lost">
+                  <h5>Lost Loan</h5>
+                  <p>Client expected to default on the loan</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- Model Overview Section -->
         <section class="model-section">
           <h2 class="section-title">Interest Rate Prediction Model</h2>
@@ -158,22 +192,6 @@
             <div class="model-overview">
               <h3>Overview</h3>
               <p>This XGBoost-based classification model works in sequence with the Interest Rate Predictor to assess the risk classification of new loan applicants at the proposed interest rate. Trained on all completed loans, both successful and defaulted.</p>
-              
-              <h4>Risk Categories</h4>
-              <div class="risk-categories">
-                <div class="risk-category fully-paid">
-                  <h5>Fully Paid</h5>
-                  <p>Client expected to meet all installments on time</p>
-                </div>
-                <div class="risk-category late">
-                  <h5>Late</h5>
-                  <p>Client likely to have delinquencies (30+ days past due)</p>
-                </div>
-                <div class="risk-category lost">
-                  <h5>Lost Loan</h5>
-                  <p>Client expected to default on the loan</p>
-                </div>
-              </div>
             </div>
 
             <div class="model-performance">
@@ -185,7 +203,6 @@
                       <th>Class</th>
                       <th>Precision</th>
                       <th>Recall</th>
-                      <th>F1-Score</th>
                       <th>Support</th>
                     </tr>
                   </thead>
@@ -194,30 +211,34 @@
                       <td class="fully-paid-text">Fully Paid</td>
                       <td>0.82</td>
                       <td>0.84</td>
-                      <td>0.83</td>
                       <td>42,008</td>
                     </tr>
                     <tr>
                       <td class="late-text">Late</td>
                       <td>0.33</td>
                       <td>0.27</td>
-                      <td>0.29</td>
                       <td>4,090</td>
                     </tr>
                     <tr>
                       <td class="lost-text">Lost Loan</td>
                       <td>0.33</td>
                       <td>0.34</td>
-                      <td>0.33</td>
                       <td>9,330</td>
                     </tr>
                   </tbody>
                 </table>
                 <div class="overall-accuracy">
-                  <strong>Overall Accuracy: 71%</strong>
+                  <strong>Most Important Metric: Precision & Recall</strong>
                 </div>
               </div>
+            
+              <div class="model-insight">
+                <p>
+                  The key metrics to evaluate for this model are the <strong>precision for “Fully Paid”</strong>, as it means the model isn’t wrongly giving favorable terms to risky borrowers, and <strong>recall for “Lost loan”</strong>, because a bank like LBW would want to catch as many potential defaults as possible, even if it means flagging some safe applicants as risky. This reduces the chance of issuing a loan that will never be repaid.
+                </p>
+              </div>
             </div>
+            
           </div>
         </section>
 
@@ -258,7 +279,6 @@
                       <th>Class</th>
                       <th>Precision</th>
                       <th>Recall</th>
-                      <th>F1-Score</th>
                       <th>Support</th>
                     </tr>
                   </thead>
@@ -267,30 +287,34 @@
                       <td class="fully-paid-text">Fully Paid</td>
                       <td>0.91</td>
                       <td>0.58</td>
-                      <td>0.71</td>
                       <td>42,008</td>
                     </tr>
                     <tr>
                       <td class="late-text">Late</td>
                       <td>0.28</td>
                       <td>0.85</td>
-                      <td>0.42</td>
                       <td>4,090</td>
                     </tr>
                     <tr>
                       <td class="lost-text">Lost Loan</td>
                       <td>0.36</td>
                       <td>0.63</td>
-                      <td>0.46</td>
                       <td>9,330</td>
                     </tr>
                   </tbody>
                 </table>
                 <div class="overall-accuracy">
-                  <strong>Overall Accuracy: 61%</strong>
+                  <strong>Most Important Metric: Recall</strong>
                 </div>
               </div>
+            
+              <div class="model-insight">
+                <p>
+                  In this case, the <strong>recall metric</strong> becomes critical for categories like “Late” and “Lost Loan”. LBW aims to catch as many risky or failing clients as possible in its active portfolio. A high recall ensures that very few high-risk clients go unnoticed, allowing the bank to intervene early—either by refinancing or applying mitigation strategies.
+                </p>
+              </div>
             </div>
+            
           </div>
         </section>
 

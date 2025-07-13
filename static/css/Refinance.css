@@ -34,7 +34,6 @@
   width: auto;  /* Keeps original aspect ratio */
 }
 
-
 /* Main Content Area */
 .main-content {
   background: white;
@@ -80,41 +79,40 @@
    TABLE STYLES
    =============================================== */
 
-   .table-container {
-    background: #f8f9ff;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-    border: 2px solid rgba(220, 38, 38, 0.1);
-    margin-bottom: 30px;
-  
-    /* Fixed scroll behavior */
-    overflow-x: auto;
-    width: 100%;
-    max-width: 100%;
-  
-    /* Remove flex layout that interferes with table scrolling */
-    display: block;
-  }
-  
-  .table-container table {
-    width: 100%;
-    table-layout: auto;
-  }
-  
-  .table {
-    width: auto; /* Changed from 100% to auto for natural sizing */
-    min-width: 1200px; /* Ensures table columns don’t wrap awkwardly */
-    border-collapse: collapse;
-    margin: 0;
-    font-size: 1rem;
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    table-layout: auto;
-  }
-  
+.table-container {
+  background: #f8f9ff;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(220, 38, 38, 0.1);
+  margin-bottom: 30px;
+
+  /* Fixed scroll behavior */
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+
+  /* Remove flex layout that interferes with table scrolling */
+  display: block;
+}
+
+.table-container table {
+  width: 100%;
+  table-layout: auto;
+}
+
+.table {
+  width: auto; /* Changed from 100% to auto for natural sizing */
+  min-width: 1200px; /* Ensures table columns don't wrap awkwardly */
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 1rem;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  table-layout: auto;
+}
 
 .table thead {
   background:  #dc2626;
@@ -383,8 +381,6 @@
   }
 }
 
-
-
 .stat-row {
   display: flex;
   justify-content: space-between;
@@ -464,6 +460,81 @@
   color: #666;
   font-size: 1rem;
   line-height: 1.5;
+}
+
+/* ===============================================
+   SUMMARY TABLE STYLES
+   =============================================== */
+
+.summary-table-container {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.summary-table {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(220, 38, 38, 0.1);
+  border-collapse: collapse;
+  overflow: hidden;
+  max-width: 600px;
+  width: 100%;
+}
+
+.summary-table td {
+  padding: 15px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
+  font-weight: 500;
+}
+
+.summary-table tr:last-child td {
+  border-bottom: none;
+}
+
+.summary-label {
+  color: #666;
+  font-weight: 600;
+  text-align: left;
+  background: #f8f9ff;
+  width: 30%;
+}
+
+.summary-value {
+  color: #dc2626;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  text-align: right;
+  width: 25%;
+}
+
+.summary-empty {
+  background: #f8f9ff;
+  width: 25%;
+}
+
+.summary-highlight {
+  background: linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%);
+}
+
+.summary-label-highlight {
+  color: #92400e;
+  font-weight: 700;
+  text-align: left;
+  background: linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%);
+  width: 50%;
+}
+
+.summary-value-highlight {
+  color: #92400e;
+  font-weight: 900;
+  font-family: 'Courier New', monospace;
+  text-align: right;
+  background: linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%);
+  font-size: 1.1rem;
+  width: 50%;
 }
 
 /* ===============================================
@@ -567,12 +638,31 @@
    CLIENT RESULTS STYLES
    =============================================== */
 
-.client-results {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 30px;
-  margin-top: 40px;
-}
+   .client-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    justify-content: center; /* This centers the grid items */
+    max-width: 1200px; /* Optional: limit max width */
+    margin-left: auto; /* Center the entire grid container */
+    margin-right: auto; /* Center the entire grid container */
+  }
+  
+  /* Alternative approach using flexbox for better centering control */
+  .client-results-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 40px;
+    justify-content: center; /* Centers the flex items */
+    align-items: flex-start; /* Aligns cards to top if different heights */
+  }
+  
+  .client-results-flex .result-card {
+    flex: 0 0 400px; /* Fixed width of 400px per card */
+    max-width: 500px; /* Maximum width if needed */
+  }
 
 .result-card {
   background: white;
@@ -592,7 +682,6 @@
   border-left: 5px solid #f59e0b;
   background: linear-gradient(135deg, #fffaf0 0%, #f7f6f3 100%);
 }
-
 
 .after-card {
   border-left: 5px solid #10b981;
@@ -692,6 +781,66 @@
 
 .metric-value.positive {
   color: #3b82f6;
+}
+
+/* ===============================================
+   NET IMPROVEMENT BOX STYLES
+   =============================================== */
+
+.net-improvement-box {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
+  border: 2px solid rgba(220, 38, 38, 0.2);
+  margin-top: 15px;
+  transition: all 0.3s ease;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.net-improvement-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(220, 38, 38, 0.4);
+}
+
+.improvement-header {
+  margin-bottom: 15px;
+}
+
+.improvement-header h3 {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.improvement-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.improvement-value {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: white;
+  font-family: 'Courier New', monospace;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  line-height: 1;
+}
+
+.improvement-label {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .no-refinance-message {
@@ -869,6 +1018,22 @@
     padding: 14px 28px;
     min-width: 180px;
   }
+
+  .improvement-value {
+    font-size: 1.8rem;
+  }
+
+  .improvement-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .summary-table {
+    font-size: 0.9rem;
+  }
+
+  .summary-table td {
+    padding: 12px 15px;
+  }
 }
 
 /* Extra Small Screens (< 480px) */
@@ -941,6 +1106,35 @@
     padding: 12px 20px;
     min-width: 150px;
     margin: 5px;
+  }
+
+  .net-improvement-box {
+    padding: 15px;
+    max-width: 300px;
+  }
+
+  .improvement-value {
+    font-size: 1.5rem;
+  }
+
+  .improvement-header h3 {
+    font-size: 1rem;
+  }
+
+  .improvement-label {
+    font-size: 0.9rem;
+  }
+
+  .summary-table {
+    font-size: 0.8rem;
+  }
+
+  .summary-table td {
+    padding: 10px 12px;
+  }
+
+  .summary-table-container {
+    margin-top: 30px;
   }
 }
 

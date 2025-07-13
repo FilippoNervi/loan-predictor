@@ -1,28 +1,12 @@
-import pickle
 import pandas as pd
 
-# Load the trained XGBoost model
-with open('xgboost_model.pkl', 'rb') as f:
-    model = pickle.load(f)
+df = pd.read_csv("client_refinancing_lookup.csv")
 
-def predict_loan_risk(input_data):
-    """
-    input_data: dict
-        Example:
-        {
-            'loan_contracted': 10000,
-            'loan_period': 36,
-            'interest_rate': 8.5,
-            'grade': 'B',
-            'purpose': 'car',
-            'employment': 'full-time',
-            'city': 'madrid'
-        }
-    """
-    df = pd.DataFrame([input_data])
-    
-    # Optionally one-hot encode or preprocess here if your model needs it
+print("\n📋 Column Names in CSV (with representation):\n")
+for i, col in enumerate(df.columns):
+    print(f"{i+1:02d}. {repr(col)}")
 
-    prediction = model.predict(df)
-    
-    return prediction[0]
+print("\n🔍 Columns containing 'expected' or 'income':\n")
+for col in df.columns:
+    if 'expected' in col.lower() or 'income' in col.lower():
+        print(f"🔎 Found: {repr(col)}")
