@@ -33,8 +33,8 @@
           <ul class="nav-links" id="nav-links">
             <li><a href="{{ url_for('home') }}">New Clients</a></li>
             <li><a href="{{ url_for('about') }}">Dashboard</a></li>
-            <li><a href="{{ url_for('rf') }}" class="active">Existing Clients</a></li>
-            <li><a href="{{ url_for('ml') }}">ML Model</a></li>
+            <li><a href="{{ url_for('rf') }}" >Existing Clients</a></li>
+            <li><a href="{{ url_for('ml') }}" >ML Model</a></li>
           </ul>
         </div>
       </div>
@@ -93,7 +93,7 @@
           <h2 class="section-title">Interest Rate Prediction Model</h2>
           <div class="model-card">
             <div class="model-overview">
-              <h3>Overview</h3>
+              <h3>Overview:</h3>
               <p>The Interest Rate Predictor is a regression model designed to recommend an optimal interest rate for new loan applicants. It has been trained on successful loan cases, where the loan was fully repaid, ensuring that predictions are grounded in low-risk lending behavior. Furthermore, a separate XGBoost model predicts whether the loan will be Fully Paid, Late, or a Lost loan (default) if it is extended at the recommended interest rate.</p>
               
               <div class="features-grid">
@@ -111,7 +111,7 @@
                 </div>
               </div>
 
-              <h4>When to Use</h4>
+              <h4>When to Use:</h4>
               <ul class="usage-list">
                 <li>Support consistent, data-driven interest rate offers</li>
                 <li>Identify a fair rate based on borrower characteristics</li>
@@ -120,7 +120,7 @@
             </div>
 
             <div class="example-output">
-              <h4>Example Output</h4>
+              <h4>Example Output:</h4>
               <div class="output-display">
                 <div class="row-three-predictions">
                   
@@ -163,7 +163,7 @@
             
           <!-- Model Performance -->
           <div class="performance-section">
-            <h3>Model Performance Metrics</h3>
+            <h3>Model Performance Metrics:</h3>
             <div class="metrics-grid">
               <div class="metric-card">
                 <div class="metric-value">0.62</div>
@@ -190,12 +190,12 @@
           <h2 class="section-title">New Applicant Classification Model</h2>
           <div class="model-card">
             <div class="model-overview">
-              <h3>Overview</h3>
+              <h3>Overview:</h3>
               <p>This XGBoost-based classification model works in sequence with the Interest Rate Predictor to assess the risk classification of new loan applicants at the proposed interest rate. Trained on all completed loans, both successful and defaulted.</p>
             </div>
 
             <div class="model-performance">
-              <h4>Classification Performance</h4>
+              <h4>Classification Performance:</h4>
               <div class="performance-table">
                 <table>
                   <thead>
@@ -247,10 +247,10 @@
           <h2 class="section-title">Current Client Classification Model</h2>
           <div class="model-card">
             <div class="model-overview">
-              <h3>Overview</h3>
+              <h3>Overview:</h3>
               <p>An XGBoost-based classifier trained on all completed loan cases to predict repayment outcomes for active clients based on their current loan and financial profile. Optimized with a learning rate of 0.3 for stability and predictive performance.</p>
               
-              <h4>Key Applications</h4>
+              <h4>Key Applications:</h4>
               <ul class="usage-list">
                 <li>Monitor risk levels in the current loan portfolio</li>
                 <li>Proactively flag loans with high probability of delay or default</li>
@@ -258,7 +258,7 @@
               </ul>
 
               <div class="example-prediction">
-                <h4>Example Prediction Output</h4>
+                <h4>Example Prediction Output:</h4>
                 <div class="current-client-example">
                   <div class="prob-display">
                     <span class="prob fully-paid large">Fully Paid: 96.8%</span>
@@ -271,7 +271,7 @@
             </div>
 
             <div class="model-performance">
-              <h4>Performance Metrics</h4>
+              <h4>Performance Metrics:</h4>
               <div class="performance-table">
                 <table>
                   <thead>
@@ -323,10 +323,10 @@
           <h2 class="section-title">Refinancing Model</h2>
           <div class="model-card">
             <div class="model-overview">
-              <h3>Overview</h3>
+              <h3>Overview:</h3>
               <p>Developed using XGBoost algorithm, this model predicts default probability for current loan clients and evaluates whether offering personalized refinancing plans would be profitable for the bank.</p>
               
-              <h4>Model Outputs</h4>
+              <h4>Model Outputs:</h4>
               <div class="refinancing-outputs">
                 <div class="output-item">
                   <strong>p_default:</strong> Probability of default under current terms
@@ -343,7 +343,7 @@
               </div>
 
               <div class="risk-example">
-                <h4>Example Risk Profile</h4>
+                <h4>Example Risk Profile:</h4>
                 <div class="risk-profile-display">
                   <div class="risk-header">Client Risk Profile</div>
                   <div class="risk-details">
@@ -360,7 +360,7 @@
             </div>
 
             <div class="model-performance">
-              <h4>Model Performance (Optimal Threshold: 0.48)</h4>
+              <h4>Model Performance (Optimal Threshold: 0.48):</h4>
               <div class="refinancing-metrics">
                 <div class="metric-row">
                   <span class="metric-label">Accuracy:</span>
@@ -426,11 +426,11 @@
             <div class="variable-card">
               <h3>Refinancing Model</h3>
               <div class="variable-list">
+                <div class="variable-item high-impact">Grade Score</div>
                 <div class="variable-item high-impact">Interest Rate</div>
-                <div class="variable-item high-impact">Annual Income</div>
-                <div class="variable-item high-impact">Debt-to-Income Ratio</div>
-                <div class="variable-item high-impact">Loan Term</div>
-                <div class="variable-item high-impact">Home Ownership</div>
+                <div class="variable-item high-impact">Credit Length</div>
+                <div class="variable-item high-impact">Total Recovery Late Fees</div>
+                <div class="variable-item high-impact">Income</div>
               </div>
             </div>
           </div>

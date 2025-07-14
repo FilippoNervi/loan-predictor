@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 16px; /* Base font size for rem calculations */
+}
+
 html, body {
   height: 100%;
   display: flex;
@@ -22,40 +26,42 @@ body {
   min-height: 100vh;
   color: #333;
   background-color: #dc2626;
+  line-height: 1.6;
 }
 
-/* Navigation Styles */
+/* Navigation Styles - Fully Responsive */
 nav {
   background: #ffffff;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.1);
 }
 
 .nav-container {
   max-width: 100%;
-  padding: 0 40px;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 70px;
+  height: clamp(60px, 8vh, 80px);
 }
 
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: clamp(0.5rem, 2vw, 0.75rem);
 }
 
 .logo-icon {
-  width: 45px;
-  height: 45px;
-  border-radius: 12px;
+  width: clamp(35px, 6vw, 45px);
+  height: clamp(35px, 6vw, 45px);
+  border-radius: 0.75rem;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .logo-icon img {
@@ -65,37 +71,40 @@ nav {
 }
 
 .nav-left h3 {
-  font-size: 24px;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
   font-weight: 700;
   background: #333;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  white-space: nowrap;
 }
 
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: clamp(1rem, 3vw, 1.25rem);
 }
 
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 30px;
+  gap: clamp(1rem, 3vw, 1.875rem);
 }
 
 .nav-links a {
   text-decoration: none;
   color: #333;
   font-weight: 600;
-  font-size: 18px;
-  padding: 8px 16px;
-  border-radius: 20px;
+  font-size: clamp(0.9rem, 2vw, 1.125rem);
+  padding: clamp(0.5rem, 1vw, 0.5rem) clamp(0.75rem, 2vw, 1rem);
+  border-radius: 1.25rem;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
   background-color: #dc2626;
   color: white;
 }
@@ -103,143 +112,152 @@ nav {
 .hamburger {
   display: none;
   flex-direction: column;
-  gap: 4px;
+  gap: 0.25rem;
   cursor: pointer;
+  padding: 0.5rem;
 }
 
 .hamburger .bar {
-  width: 25px;
-  height: 3px;
+  width: 1.5rem;
+  height: 0.1875rem;
   background: #333;
-  border-radius: 2px;
+  border-radius: 0.125rem;
+  transition: all 0.3s ease;
 }
 
-/* Hero Section */
+/* Hero Section - Fully Responsive */
 .hero-section {
-  padding: 80px 5% 60px;
+  padding: clamp(3rem, 8vh, 5rem) clamp(1rem, 5vw, 3rem) clamp(2rem, 6vh, 3.75rem);
   text-align: center;
   color: white;
 }
 
 .hero-content {
-  max-width: 800px;
+  max-width: min(800px, 90vw);
   margin: 0 auto;
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2rem, 8vw, 4rem);
   font-weight: 800;
-  margin-bottom: 20px;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  margin-bottom: clamp(1rem, 3vh, 1.25rem);
+  text-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
 }
 
 .hero-subtitle {
-  font-size: clamp(1.1rem, 2vw, 1.4rem);
-  margin-bottom: 40px;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  margin-bottom: clamp(2rem, 4vh, 2.5rem);
   opacity: 0.9;
   line-height: 1.6;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Main Content Area */
+/* Main Content Area - Responsive */
 .main-content {
   background: white;
-  margin: -30px 5% 0;
-  margin-left: 70px;
-  margin-right: 70px;
-  border-radius: 25px 25px 25px 25px;
+  margin: clamp(-1rem, -3vh, -1.875rem) clamp(1rem, 5vw, 4.375rem) 0;
+  border-radius: clamp(1rem, 3vw, 1.5625rem);
   transition: all 0.3s ease;
+  box-shadow: 0 -0.5rem 2rem rgba(0, 0, 0, 0.1);
 }
 
 .content-wrapper {
-  max-width: 1200px;
+  max-width: min(1200px, 95vw);
   margin: 0 auto;
-  padding: 60px 40px;
+  padding: clamp(2rem, 6vh, 3.75rem) clamp(1rem, 4vw, 2.5rem);
 }
 
-/* Section Styling */
+/* Section Styling - Responsive */
 .model-section {
-  margin-bottom: 60px;
+  margin-bottom: clamp(2.5rem, 6vh, 3.75rem);
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   font-weight: 700;
-  margin-bottom: 30px;
+  margin-bottom: clamp(1.5rem, 4vh, 1.875rem);
   background: linear-gradient(135deg, #dc2626, #991b1b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-align: center;
+  line-height: 1.3;
 }
 
-/* Model Cards */
+/* Model Cards - Responsive */
 .model-card {
   background: #f8f9ff;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: clamp(1rem, 2vw, 1.25rem);
+  box-shadow: 0 clamp(0.75rem, 2vw, 1.25rem) clamp(2rem, 5vw, 3.75rem) rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(220, 38, 38, 0.1);
-  margin-bottom: 30px;
+  margin-bottom: clamp(1.5rem, 3vh, 1.875rem);
 }
 
 .model-overview h3 {
   color: #dc2626;
-  font-size: 1.8rem;
-  margin-bottom: 20px;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  margin-bottom: clamp(1rem, 3vh, 1.25rem);
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .model-overview h4 {
   color: #333;
-  font-size: 1.4rem;
-  margin: 20px 0 15px 0;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  margin: clamp(1rem, 3vh, 1.25rem) 0 clamp(0.75rem, 2vh, 0.9375rem) 0;
+  padding: clamp(0.5rem, 1vh, 0.75rem) 0;
   font-weight: 600;
+  line-height: 1.4;
 }
 
 .model-overview p {
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2vw, 1.1rem);
   line-height: 1.7;
   color: #555;
-  margin-bottom: 20px;
+  margin-bottom: clamp(1rem, 3vh, 1.25rem);
 }
 
-/* Concepts Overview Styling */
+/* Concepts Overview - Responsive */
 .concepts-overview {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: clamp(1.5rem, 4vh, 1.875rem);
 }
 
 .concept-item {
   background: white;
-  padding: 25px;
-  border-radius: 15px;
+  padding: clamp(1.25rem, 3vw, 1.5625rem);
+  border-radius: clamp(0.75rem, 2vw, 0.9375rem);
   border: 2px solid #dc2626;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.1);
 }
 
 .concept-item h4 {
   color: #dc2626;
-  font-size: 1.4rem;
-  margin-bottom: 15px;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  margin-bottom: clamp(0.75rem, 2vh, 0.9375rem);
+  padding: clamp(0.5rem, 1vh, 0.75rem) 0 clamp(0.25rem, 1vh, 0.5rem) 0;
   font-weight: 700;
 }
 
 .concept-item p {
-  font-size: 1.1rem;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   line-height: 1.7;
   color: #555;
   margin: 0;
 }
 
-
 .model-insight {
-  margin-top: 20px;
-  padding: 20px;
+  margin-top: clamp(1rem, 3vh, 1.25rem);
+  padding: clamp(1rem, 3vw, 1.25rem);
   background: #fff8f0;
-  border-left: 5px solid #dc2626;
-  border-radius: 12px;
-  font-size: 1.05rem;
+  border-left: 0.3125rem solid #dc2626;
+  border-radius: 0.75rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
   line-height: 1.7;
   color: #333;
 }
@@ -248,35 +266,37 @@ nav {
   color: #dc2626;
 }
 
-/* Features Grid */
+/* Features Grid - Responsive */
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-  margin: 30px 0;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: clamp(1rem, 3vw, 1.5625rem);
+  margin: clamp(1.5rem, 4vh, 1.875rem) 0;
 }
 
 .feature-item {
   background: white;
-  padding: 25px;
-  border-radius: 15px;
+  padding: clamp(1.25rem, 3vw, 1.5625rem);
+  border-radius: clamp(0.75rem, 2vw, 0.9375rem);
   border: 2px solid #dc2626;
   text-align: center;
 }
 
 .feature-item h4 {
   color: #dc2626;
-  font-size: 1.2rem;
-  margin-bottom: 5px;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  margin-bottom: clamp(0.5rem, 1vh, 0.75rem);
+  padding: clamp(0.5rem, 1vh, 0.625rem) 0;
 }
 
 .feature-item p {
   color: #666;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
   margin: 0;
+  line-height: 1.5;
 }
 
-/* Usage Lists */
+/* Usage Lists - Responsive */
 .usage-list {
   list-style: none;
   padding: 0;
@@ -284,31 +304,32 @@ nav {
 
 .usage-list li {
   background: white;
-  padding: 15px 20px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  border-left: 4px solid #dc2626;
-  font-size: 1.1rem;
+  padding: clamp(0.75rem, 2vw, 0.9375rem) clamp(1rem, 3vw, 1.25rem);
+  margin-bottom: clamp(0.5rem, 1vh, 0.625rem);
+  border-radius: 0.625rem;
+  border-left: 0.25rem solid #dc2626;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   color: #333;
+  line-height: 1.6;
 }
 
-/* Example Output Styling */
+/* Example Output - Responsive */
 .example-output {
-  margin-top: 40px;
+  margin-top: clamp(2rem, 4vh, 2.5rem);
 }
 
 .output-display {
   background: white;
-  padding: 30px;
-  border-radius: 15px;
+  padding: clamp(1.5rem, 4vw, 1.875rem);
+  border-radius: clamp(0.75rem, 2vw, 0.9375rem);
   border: 2px solid #dc2626;
 }
 
 .prediction-box {
   background: #fff5f5;
-  padding: 25px;
-  border-radius: 12px;
-  margin-bottom: 20px;
+  padding: clamp(1.25rem, 3vw, 1.5625rem);
+  border-radius: 0.75rem;
+  margin-bottom: clamp(1rem, 2vh, 1.25rem);
   text-align: center;
 }
 
@@ -319,39 +340,41 @@ nav {
 
 .prediction-box h5 {
   color: #dc2626;
-  font-size: 1.2rem;
-  margin-bottom: 15px;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  margin-bottom: clamp(0.75rem, 2vh, 0.9375rem);
   font-weight: 700;
 }
 
 .rate-display {
-  font-size: 2.8rem;
+  font-size: clamp(2rem, 6vw, 2.8rem);
   font-weight: 800;
   color: #dc2626;
-  margin-bottom: 15px;
+  margin-bottom: clamp(0.75rem, 2vh, 0.9375rem);
+  line-height: 1.2;
 }
 
 .rate-display.small {
-  font-size: 2.2rem;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
 }
 
 .probabilities {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 15px;
+  gap: clamp(0.5rem, 1vh, 0.5rem);
+  margin-bottom: clamp(0.75rem, 2vh, 0.9375rem);
 }
 
 .prob {
-  padding: 8px 15px;
-  border-radius: 8px;
+  padding: clamp(0.5rem, 1vw, 0.5rem) clamp(0.75rem, 2vw, 0.9375rem);
+  border-radius: 0.5rem;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
+  line-height: 1.3;
 }
 
 .prob.large {
-  font-size: 1.2rem;
-  padding: 12px 20px;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  padding: clamp(0.75rem, 1.5vw, 0.75rem) clamp(1rem, 2.5vw, 1.25rem);
 }
 
 .prob.fully-paid {
@@ -370,68 +393,72 @@ nav {
 }
 
 .outcome {
-  font-size: 1.3rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
   font-weight: 700;
   color: #333;
+  line-height: 1.4;
 }
 
-.bounds-container {
+/* Row Three Predictions - Responsive */
+.row-three-predictions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  gap: clamp(1rem, 3vw, 1.25rem);
+  margin-top: clamp(1rem, 3vh, 1.25rem);
 }
 
-/* Performance Metrics */
+/* Performance Metrics - Responsive */
 .performance-section {
-  margin-top: 40px;
+  margin-top: clamp(2rem, 4vh, 2.5rem);
 }
 
 .performance-section h3 {
   color: #dc2626;
-  font-size: 1.8rem;
-  margin-bottom: 25px;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  margin-bottom: clamp(1.25rem, 3vh, 1.5625rem);
   text-align: center;
 }
 
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: clamp(1rem, 3vw, 1.25rem);
 }
 
 .metric-card {
   background: white;
-  padding: 25px;
-  border-radius: 15px;
+  padding: clamp(1.25rem, 3vw, 1.5625rem);
+  border-radius: clamp(0.75rem, 2vw, 0.9375rem);
   text-align: center;
   border: 2px solid #dc2626;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.1);
 }
 
 .metric-value {
-  font-size: 2.5rem;
+
   font-weight: 800;
   color: #dc2626;
-  margin-bottom: 10px;
+  margin-bottom: clamp(0.5rem, 1vh, 0.625rem);
+  line-height: 1.2;
 }
 
 .metric-label {
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
   color: #666;
   font-weight: 600;
+  line-height: 1.4;
 }
 
-/* Risk Categories */
+/* Risk Categories - Responsive */
 .risk-categories {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin: 25px 0;
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+  gap: clamp(1rem, 3vw, 1.25rem);
 }
 
 .risk-category {
-  padding: 20px;
-  border-radius: 12px;
+  padding: clamp(1rem, 3vw, 1.25rem);
+  border-radius: 0.75rem;
   text-align: center;
 }
 
@@ -451,9 +478,10 @@ nav {
 }
 
 .risk-category h5 {
-  margin-bottom: 10px;
-  font-size: 1.3rem;
+  margin-bottom: clamp(0.5rem, 1vh, 0.625rem);
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .risk-category.fully-paid h5 {
@@ -470,38 +498,38 @@ nav {
 
 .risk-category p {
   margin: 0;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
   color: #555;
+  line-height: 1.5;
 }
 
-/* Performance Tables */
+/* Performance Tables - Responsive */
 .performance-table {
   background: white;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
 }
 
 .performance-table table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 400px;
 }
 
 .performance-table th,
 .performance-table td {
-  padding: 15px;
+  padding: clamp(0.75rem, 2vw, 0.9375rem);
   text-align: left;
   border-bottom: 1px solid #eee;
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
 }
 
 .performance-table th {
   background: #dc2626;
   color: white;
   font-weight: 700;
-}
-
-.performance-table td {
-  font-size: 1rem;
 }
 
 .fully-paid-text {
@@ -521,99 +549,107 @@ nav {
 
 .overall-accuracy {
   background: #f8f9ff;
-  padding: 15px;
+  padding: clamp(0.75rem, 2vw, 0.9375rem);
   text-align: center;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
   color: #dc2626;
+  font-weight: 600;
 }
 
-/* Current Client Example */
+/* Current Client Example - Responsive */
 .current-client-example {
   background: white;
-  padding: 25px;
-  border-radius: 12px;
+  padding: clamp(1.25rem, 3vw, 1.5625rem);
+  border-radius: 0.75rem;
   border: 2px solid #dc2626;
-  margin: 20px 0;
+  margin: clamp(1rem, 3vh, 1.25rem) 0;
 }
 
 .prob-display {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: clamp(0.5rem, 1vh, 0.625rem);
+  margin-bottom: clamp(0.75rem, 2vh, 0.9375rem);
 }
 
 .predicted-outcome {
   text-align: center;
-  font-size: 1.4rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
   font-weight: 700;
   color: #333;
-  padding: 10px;
+  padding: clamp(0.5rem, 1.5vw, 0.625rem);
   background: #f0f0f0;
-  border-radius: 8px;
+  border-radius: 0.5rem;
+  line-height: 1.4;
 }
 
-/* Refinancing Outputs */
+/* Refinancing Outputs - Responsive */
 .refinancing-outputs {
   background: white;
-  padding: 25px;
-  border-radius: 12px;
+  padding: clamp(1.25rem, 3vw, 1.5625rem);
+  border-radius: 0.75rem;
   border: 2px solid #dc2626;
-  margin: 20px 0;
+  margin: clamp(1rem, 3vh, 1.25rem) 0;
 }
 
 .output-item {
-  padding: 12px 0;
+  padding: clamp(0.75rem, 1.5vh, 0.75rem) 0;
   border-bottom: 1px solid #eee;
-  font-size: 1.1rem;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   color: #333;
+  line-height: 1.6;
 }
 
 .output-item:last-child {
   border-bottom: none;
 }
 
-/* Risk Profile Display */
+/* Risk Profile Display - Responsive */
 .risk-example {
-  margin: 30px 0;
+  margin: clamp(1.5rem, 4vh, 1.875rem) 0;
 }
 
 .risk-profile-display {
   background: white;
-  padding: 25px;
-  border-radius: 12px;
+  padding: clamp(1.25rem, 3vw, 1.5625rem);
+  border-radius: 0.75rem;
   border: 2px solid #dc2626;
 }
 
 .risk-header {
-  font-size: 1.4rem;
+  font-size: clamp(1.2rem, 2.5vw, 1.4rem);
   font-weight: 700;
   color: #dc2626;
-  margin-bottom: 15px;
+  margin-bottom: clamp(0.75rem, 2vh, 0.9375rem);
   text-align: center;
+  line-height: 1.3;
 }
 
 .risk-details {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 10px;
-  margin-bottom: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: clamp(0.5rem, 1.5vw, 0.625rem);
+  margin-bottom: clamp(1rem, 3vh, 1.25rem);
 }
 
 .risk-details span {
   background: #f8f9ff;
-  padding: 10px;
-  border-radius: 8px;
+  padding: clamp(0.5rem, 1.5vw, 0.625rem);
+  border-radius: 0.5rem;
   font-weight: 600;
   color: #333;
+  font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+  text-align: center;
+  line-height: 1.4;
 }
 
 .risk-assessment {
   text-align: center;
-  padding: 15px;
-  border-radius: 10px;
+  padding: clamp(0.75rem, 2vw, 0.9375rem);
+  border-radius: 0.625rem;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  line-height: 1.4;
 }
 
 .risk-assessment.very-high {
@@ -622,20 +658,22 @@ nav {
   border: 2px solid #dc3545;
 }
 
-/* Refinancing Metrics */
+/* Refinancing Metrics - Responsive */
 .refinancing-metrics {
   background: white;
-  padding: 25px;
-  border-radius: 12px;
+  padding: clamp(1.25rem, 3vw, 1.5625rem);
+  border-radius: 0.75rem;
   border: 2px solid #dc2626;
 }
 
 .metric-row {
   display: flex;
   justify-content: space-between;
-  padding: 12px 0;
+  align-items: center;
+  padding: clamp(0.75rem, 1.5vh, 0.75rem) 0;
   border-bottom: 1px solid #eee;
-  font-size: 1.1rem;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  gap: 1rem;
 }
 
 .metric-row:last-child {
@@ -645,49 +683,53 @@ nav {
 .metric-row .metric-label {
   font-weight: 600;
   color: #333;
+  flex: 1;
 }
 
 .metric-row .metric-value {
   font-weight: 700;
   color: #dc2626;
+  flex-shrink: 0;
 }
 
-/* Variables Section */
+/* Variables Section - Responsive */
 .variables-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: clamp(1.5rem, 4vw, 1.875rem);
 }
 
 .variable-card {
   background: #f8f9ff;
-  padding: 30px;
-  border-radius: 20px;
+  padding: clamp(1.5rem, 4vw, 1.875rem);
+  border-radius: clamp(1rem, 2vw, 1.25rem);
   border: 2px solid #dc2626;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 clamp(0.5rem, 1.5vw, 0.625rem) clamp(1.5rem, 4vw, 1.875rem) rgba(0, 0, 0, 0.1);
 }
 
 .variable-card h3 {
   color: #dc2626;
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  margin-bottom: clamp(1rem, 3vh, 1.25rem);
   text-align: center;
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .variable-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: clamp(0.75rem, 1.5vh, 0.75rem);
 }
 
 .variable-item {
-  padding: 12px 18px;
-  border-radius: 10px;
+  padding: clamp(0.75rem, 1.5vw, 0.75rem) clamp(1rem, 2vw, 1.125rem);
+  border-radius: 0.625rem;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
   text-align: center;
   transition: all 0.3s ease;
+  line-height: 1.4;
 }
 
 .variable-item.high-impact {
@@ -703,97 +745,32 @@ nav {
 }
 
 .variable-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.1);
 }
 
-/* Footer */
+/* Footer - Responsive */
 .site-footer {
   background-color: #ffffff;
   color: #000000;
-  padding: 30px 20px;
+  padding: clamp(1.5rem, 4vh, 1.875rem) clamp(1rem, 3vw, 1.25rem);
   text-align: center;
-  font-size: 0.95rem;
+  font-size: clamp(0.85rem, 1.8vw, 0.95rem);
   font-family: Arial, Helvetica, sans-serif;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 60px;
+  margin-top: clamp(3rem, 6vh, 3.75rem);
 }
 
 .site-footer p {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #000000;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.03125rem;
+  line-height: 1.5;
 }
 
-.row-three-predictions {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-
-.row-three-predictions .prediction-box {
-  flex: 1 1 30%;
-}
-
-/* Responsive Design */
-
-/* Large Screens (Desktops < 1200px) */
-@media (max-width: 1200px) {
-  .nav-links a {
-    font-size: 18px;
-    padding: 8px 14px;
-  }
-
-  .hero-title {
-    font-size: 3.2rem;
-  }
-
-  .section-title {
-    font-size: 2.2rem;
-  }
-
-  .content-wrapper {
-    padding: 50px 30px;
-  }
-}
-
-/* Medium Screens (Tablets < 1024px) */
-@media (max-width: 1024px) {
-  .nav-links a {
-    font-size: 16px;
-    padding: 6px 12px;
-  }
-
-  .hero-title {
-    font-size: 2.8rem;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-
-  .main-content {
-    margin: -20px 4% 0;
-  }
-
-  .model-card {
-    padding: 30px;
-  }
-
-  .bounds-container {
-    grid-template-columns: 1fr;
-  }
-
-  .metrics-grid {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  }
-}
-
-/* Small Screens (Narrow Tablets / Large Mobiles < 900px) */
-@media (max-width: 900px) {
+/* Enhanced Mobile Navigation */
+@media (max-width: 768px) {
   .hamburger {
     display: flex;
   }
@@ -807,119 +784,105 @@ nav {
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(10px);
     flex-direction: column;
-    padding: 20px 0;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem 0;
+    box-shadow: 0 0.625rem 1.875rem rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 1rem 1rem;
   }
 
   .nav-links.show {
     display: flex;
   }
 
+  .nav-links li {
+    width: 100%;
+  }
+
   .nav-links a {
-    font-size: 15px;
-    padding: 12px 20px;
+    display: block;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 0;
+    margin: 0 1rem;
+    border-radius: 0.5rem;
   }
 
-  .main-content {
-    margin: -20px 3% 0;
-  }
-
-  .content-wrapper {
-    padding: 40px 20px;
-  }
-
-  .model-card {
-    padding: 25px 20px;
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .variables-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .risk-categories {
-    grid-template-columns: 1fr;
-  }
-
-  .metrics-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
-
-  .rate-display {
-    font-size: 2.2rem;
-  }
-
-  .rate-display.small {
-    font-size: 1.8rem;
+  .nav-left h3 {
+    font-size: clamp(1rem, 4vw, 1.3rem);
   }
 }
 
-/* Extra Small Screens (Phones < 480px) */
+/* Ultra-small screens */
 @media (max-width: 480px) {
   .hero-title {
-    font-size: 2.2rem;
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
   }
-
-  .section-title {
-    font-size: 1.8rem;
-  }
-
+  
   .main-content {
-    margin: -15px 2% 0;
+    margin: clamp(-0.75rem, -2vh, -1rem) clamp(0.5rem, 3vw, 1rem) 0;
   }
-
-  .model-card {
-    padding: 20px 15px;
+  
+  .row-three-predictions {
+    grid-template-columns: 1fr;
   }
-
-  .content-wrapper {
-    padding: 30px 15px;
+  
+  .features-grid,
+  .variables-grid,
+  .risk-categories {
+    grid-template-columns: 1fr;
   }
-
-  .feature-item {
-    padding: 20px 15px;
-  }
-
-  .metric-card {
-    padding: 20px;
-  }
-
-  .metric-value {
-    font-size: 2rem;
-  }
-
-  .rate-display {
-    font-size: 2rem;
-  }
-
-  .rate-display.small {
-    font-size: 1.6rem;
-  }
-
-  .prob {
-    font-size: 0.9rem;
-    padding: 6px 12px;
-  }
-
-  .prob.large {
-    font-size: 1rem;
-    padding: 10px 15px;
-  }
-
+  
   .risk-details {
     grid-template-columns: 1fr;
   }
-
-  .variable-card {
-    padding: 20px;
+  
+  .metric-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
   }
-
+  
+  .performance-table {
+    font-size: 0.8rem;
+  }
+  
   .performance-table th,
   .performance-table td {
-    padding: 10px 8px;
-    font-size: 0.9rem;
+    padding: 0.5rem 0.25rem;
+  }
+}
+
+/* Large screens optimization */
+@media (min-width: 1400px) {
+  .content-wrapper {
+    max-width: 1300px;
+  }
+  
+  .nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
+/* Print styles */
+@media print {
+  .nav-container,
+  .hamburger,
+  .site-footer {
+    display: none;
+  }
+  
+  .main-content {
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  .hero-section {
+    background: white;
+    color: black;
+  }
+  
+  body {
+    background: white;
   }
 }

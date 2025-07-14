@@ -28,7 +28,7 @@
           <ul class="nav-links" id="nav-links">
             <li><a href="{{ url_for('home') }}">New Clients</a></li>
             <li><a href="{{ url_for('about') }}">Dashboard</a></li>
-            <li><a href="{{ url_for('rf') }}" class="active">Existing Clients</a></li>
+            <li><a href="{{ url_for('rf') }}" >Existing Clients</a></li>
             <li><a href="{{ url_for('ml') }}">ML Model</a></li>
           </ul>
         </div>
@@ -85,21 +85,13 @@
               <h3>Comprehensive Impact Metrics</h3>
               <div class="stats-list">
                 <div class="stat-row">
-                  <span class="stat-name">Mean net gain:</span>
-                  <span class="stat-number">$10,768,617.76</span>
-                </div>
-                <div class="stat-row">
                   <span class="stat-name">Mean default reduction:</span>
                   <span class="stat-number">17.28%</span>
                 </div>
                 <div class="stat-row">
                   <span class="stat-name">Mean interest rate reduction:</span>
-                  <span class="stat-number">3.00 pts</span>
+                  <span class="stat-number">5%</span>
                 </div>  
-                <div class="stat-row">
-                  <span class="stat-name">Clients refinanced:</span>
-                  <span class="stat-number">1,809</span>
-                </div>
                 <div class="stat-row">
                   <span class="stat-name">Refinancing success rate:</span>
                   <span class="stat-number">73.16%</span>
@@ -147,8 +139,8 @@
           <div class="lookup-form-container">
             <form class="lookup-form" method="POST">
               <div class="form-group">
-                <label for="member_id">Client ID</label>
-                <input type="text" name="member_id" id="member_id" placeholder="Enter client member ID" required>
+                <label for="member_id">Loan ID</label>
+                <input type="text" name="member_id" id="member_id" placeholder="Enter Loan ID" required>
                 <button type="submit" class="search-btn">
                   <span>Search Client</span>
                 </button>
